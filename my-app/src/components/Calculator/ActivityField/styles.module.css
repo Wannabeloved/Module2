@@ -1,0 +1,28 @@
+:root {
+	/* Количество цифр */
+	--nums-count: 10;
+
+	/* Количество колонок */
+	--cols-count: 3;
+}
+
+.activityField {
+	grid-column-start: 1;
+	grid-column-end: calc(var(--cols-count) + 1);
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+}
+
+.activityButton {
+	width: 100%;
+	height: 40px;
+	background-color: transparent;
+
+	color: aliceblue;
+	font-size: 40px;
+	font-weight: 100;
+
+	border: none;
+	border-top: 2px solid ghostwhite;
+}

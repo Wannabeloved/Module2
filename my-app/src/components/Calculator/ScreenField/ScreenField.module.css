@@ -1,0 +1,10 @@
+.field {
+	height: 70px;
+}
+
+.screen {
+	width: auto;
+	height: 100%;
+	color: aliceblue;
+	text-align: end;
+}
