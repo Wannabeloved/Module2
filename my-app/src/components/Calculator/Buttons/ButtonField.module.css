@@ -1,0 +1,17 @@
+.field {
+	--button-size: 50px;
+	--button-padding: 8px;
+
+	--font-size: calc(var(--button-size) - var(--button-padding) - 15px);
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: var(--button-size);
+	height: var(--button-size);
+	background-color: rgb(83, 83, 83);
+	color: white;
+	font-size: var(--font-size);
+	border: none;
+	border-radius: 0.6rem;
+}

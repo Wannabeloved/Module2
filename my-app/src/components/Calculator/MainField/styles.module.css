@@ -1,0 +1,21 @@
+:root {
+	/* Количество цифр */
+	--nums-count: 10;
+
+	/* Количество колонок */
+	--cols-count: 3;
+}
+
+.mainField {
+	display: grid;
+	margin: auto;
+	grid-template-columns: repeat(var(--cols-count), 1fr);
+	gap: 5px;
+}
+.mainField > :last-child {
+	background-color: transparent;
+	border: 2px solid rgb(88, 88, 88);
+	width: auto;
+	grid-column-start: calc(rem(var(--nums-count), var(--cols-count)) + 1);
+	grid-column-end: calc(var(--cols-count) + 1);
+}
