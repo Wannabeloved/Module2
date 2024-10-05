@@ -1,0 +1,39 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+	align-items: center;
+}
+
+.main__information {
+	height: "200px";
+	width: "100%";
+	align-self: "start";
+	display: "flex";
+	justify-content: "center";
+}
+
+.main__gameField {
+	height: "70%";
+	align-self: "start";
+}
+
+.item {
+	align-content: center;
+	text-align: center;
+	width: 150px;
+	height: 150px;
+}
+
+.borderTop {
+	border-top: 2px solid gray;
+}
+.borderRight {
+	border-right: 2px solid gray;
+}
+.borderBottom {
+	border-bottom: 2px solid gray;
+}
+.borderLeft {
+	border-left: 2px solid gray;
+}

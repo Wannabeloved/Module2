@@ -27,8 +27,6 @@ export const useCalculator = () => {
 	};
 
 	const write = (symbol) => {
-		console.log(`lastIsEqual in the start:: `, lastIsEqual);
-
 		let lastExpression;
 		let lastResult = screen;
 
@@ -68,8 +66,6 @@ export const useCalculator = () => {
 
 		let forPush = symbol.toString();
 
-		console.log(`lastIsEqual:: `, lastIsEqual);
-
 		if (!currentIsSign) {
 			// если текущее -- цифра
 			if (resultOnScreen) {
@@ -81,14 +77,11 @@ export const useCalculator = () => {
 			const lastElement = historyCurrent.pop() || "";
 			forPush = lastElement + forPush;
 		} else if (lastIsSign && lastIsEqual === false) {
-			console.log(`pfikb`);
 			// если (текущее -- знак &&) последнее -- знак
 			// тогда меняем (удаляем) последний элемент
 			historyCurrent.pop();
 		}
 		historyCurrent.push(forPush);
-
-		console.log(historyCurrent);
 
 		if (currentIsSign) {
 			let result = calculate(historyCurrent);
@@ -106,8 +99,6 @@ export const useCalculator = () => {
 		if (currentIsEqual) {
 			lastIsEqual = true;
 		}
-		console.log(`lastIsEqual in the end:: `, lastIsEqual);
-		console.log(`закончили`);
 	};
 
 	const clear = () => {
