@@ -1,0 +1,18 @@
+.main {
+	display: grid;
+}
+
+.item {
+	align-content: center;
+	text-align: center;
+	width: 150px;
+	height: 150px;
+	padding: 0;
+}
+
+.borderTop {
+	border-top: 2px solid gray;
+}
+.borderLeft {
+	border-left: 2px solid gray;
+}

@@ -1,0 +1,29 @@
+.main {
+	width: 300px;
+	height: 150px;
+	background-color: salmon;
+	border-radius: 2.3rem;
+	border: 2px solid rgb(236, 43, 59);
+
+	opacity: 1;
+
+	animation-duration: 4s;
+	animation-timing-function: ease-in;
+	animation-direction: normal;
+	animation-name: show-error;
+	animation-fill-mode: forwards;
+}
+
+/* .main {
+	opacity: 0;
+} */
+
+@keyframes show-error {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
