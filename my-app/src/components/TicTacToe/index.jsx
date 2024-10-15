@@ -33,7 +33,6 @@ export const TicTacToe = () => {
 		useCustomWinLineCount(stdColumns);
 
 	const onMove = (indexOfRow, indexInRow) => {
-		console.warn("isFinish:: ", isFinish);
 		if (isFinish) {
 			return;
 		}
