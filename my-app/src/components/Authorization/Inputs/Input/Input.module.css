@@ -64,32 +64,10 @@ li {
 }
 
 /*---------------------------------------------*/
-input {
-	outline: none;
-	border: none;
-}
 
 textarea {
 	outline: none;
 	border: none;
-}
-
-textarea:focus,
-input:focus {
-	border-color: transparent !important;
-}
-
-input:focus::-webkit-input-placeholder {
-	color: transparent;
-}
-input:focus:-moz-placeholder {
-	color: transparent;
-}
-input:focus::-moz-placeholder {
-	color: transparent;
-}
-input:focus:-ms-input-placeholder {
-	color: transparent;
 }
 
 textarea:focus::-webkit-input-placeholder {
@@ -103,19 +81,6 @@ textarea:focus::-moz-placeholder {
 }
 textarea:focus:-ms-input-placeholder {
 	color: transparent;
-}
-
-input::-webkit-input-placeholder {
-	color: #adadad;
-}
-input:-moz-placeholder {
-	color: #adadad;
-}
-input::-moz-placeholder {
-	color: #adadad;
-}
-input:-ms-input-placeholder {
-	color: #adadad;
 }
 
 textarea::-webkit-input-placeholder {

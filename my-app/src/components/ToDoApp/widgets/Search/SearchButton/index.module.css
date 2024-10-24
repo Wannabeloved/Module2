@@ -1,0 +1,7 @@
+.button {
+	padding: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border: 2px solid orchid;
+	border-left: none;
+}

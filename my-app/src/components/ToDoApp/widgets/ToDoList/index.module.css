@@ -1,0 +1,16 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.buttonField {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	gap: 10px;
+}
+.todoList {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
