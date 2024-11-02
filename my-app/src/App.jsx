@@ -1,25 +1,24 @@
 import styles from "./App.module.css";
-import { Calculator } from "./components/Calculator";
-import { List } from "./components/List";
-import { Recipes } from "./components/Recipes";
-import { TicTacToe } from "./components/TicTacToe";
-import { Authorization } from "./components/Authorization";
-import { StrictMode } from "react";
-import { ToDoApp } from "./components/ToDoApp";
+import { View } from "./app/router";
+
+import { Header } from "./header/NavList";
 
 export const App = () => {
 	return (
-		<div className={styles.container}>
-			{<ToDoApp />}
-			{null && <Authorization />}
-			{null && (
-				<StrictMode>
-					<TicTacToe />
-				</StrictMode>
-			)}
-			{null && <Recipes />}
-			{null && <List />}
-			{null && <Calculator />}
+		<div
+			id="app"
+			className={styles.container}
+			style={{
+				width: "100vw",
+			}}
+		>
+			<Header />
+			<article
+				id="view"
+				style={{ width: "100%", display: "flex", justifyContent: "center" }}
+			>
+				<View />
+			</article>
 		</div>
 	);
 };
