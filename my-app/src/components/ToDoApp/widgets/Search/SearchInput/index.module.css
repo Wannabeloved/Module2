@@ -3,10 +3,10 @@
 	padding: 10px;
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
-	border: 2px solid orchid;
+	border: 2px solid rgba(211, 135, 255, 0.842);
 
 	&&:focus {
 		outline: none;
-		border: 2px solid orchid;
+		border: 2px solid rgba(211, 135, 255, 0.842);
 	}
 }

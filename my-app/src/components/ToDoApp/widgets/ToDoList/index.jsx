@@ -6,13 +6,14 @@ import { CreateButton } from "./Buttons/CreateButton";
 import { ToDoListModel } from "./model";
 import { ToDoListLayout } from "./ui";
 
-export const ToDoList = ({ Search }) => {
+export const ToDoList = ({ Search, storage }) => {
 	return (
 		<ToDoListModel
 			ToDoListLayout={ToDoListLayout}
 			buttons={{ SortButton, CreateButton }}
 			Search={Search}
 			ToDo={ToDo}
+			storage={storage}
 		/>
 	);
 };

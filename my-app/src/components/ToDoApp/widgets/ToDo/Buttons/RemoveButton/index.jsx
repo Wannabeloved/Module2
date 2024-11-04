@@ -3,14 +3,17 @@ import { RemoveButtonLayout } from "./ui";
 
 import { useRemoveToDo } from "../../../../features/removeToDo";
 
-export const RemoveButton = ({ id }) => {
+export const RemoveButton = ({ id, goToListPage }) => {
 	const remove = useRemoveToDo();
 
 	return (
-		<RemoveButtonModel
-			RemoveButtonLayout={RemoveButtonLayout}
-			remove={remove}
-			id={id}
-		/>
+		<div>
+			<RemoveButtonModel
+				RemoveButtonLayout={RemoveButtonLayout}
+				remove={remove}
+				id={id}
+				goToListPage={goToListPage}
+			/>
+		</div>
 	);
 };

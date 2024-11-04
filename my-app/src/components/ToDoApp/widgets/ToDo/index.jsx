@@ -10,8 +10,10 @@ export const ToDo = ({
 	setSomethingIsEditing,
 	Buttons: { CancelCreateButton, ConfirmCreateButton },
 	deleteToDoFromList,
+	getToDoById,
 }) => {
 	const { id, title, isCompleted, isNew, createdAt } = todoInfo;
+	console.warn("todoInfo:: ", todoInfo);
 
 	const editButton = ({ setIsEditing }) => (
 		<EditButton
@@ -67,6 +69,7 @@ export const ToDo = ({
 				CancelCreateButton: cancelCreateButton,
 				Completed: completed,
 			}}
+			getToDoById={getToDoById}
 		/>
 	);
 };

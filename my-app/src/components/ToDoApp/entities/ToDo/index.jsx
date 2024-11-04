@@ -1,72 +1,35 @@
 import { useState, useRef } from "react";
 
-import { Title } from "./Title";
+import { Title } from "../../widgets/OpenToDo/Title";
 
 import styles from "./index.module.css";
 
+import { Link } from "react-router-dom";
+
 export const ToDo = ({
 	todoInfo: { id, title, isCompleted, isNew, createdAt },
-	buttons: {
-		EditButton,
-		SaveButton,
-		RemoveButton,
-		ConfirmCreateButton,
-		CancelCreateButton,
-		Completed,
-	},
 }) => {
-	const [isEditing, setIsEditing] = useState(isNew);
 	const [isCurrentCompleted, setIsCurrentCompleted] = useState(isCompleted);
 
 	const titleRef = useRef(null);
 
 	return (
 		<li>
-			<article className={styles.container}>
-				<article className={styles.todo}>
-					<section className={styles.title + " " + styles.section}>
-						<Title
-							title={title}
-							isInEditingMode={isEditing || isNew}
-							titleRef={titleRef}
-						/>
-					</section>
+			<Link to={`task/${id}`}>
+				<article
+					className={styles.container}
+					style={{ "--extra-width-color": isCompleted ? "#77dd77" : "#E4717A" }}
+				>
+					<article className={styles.todo}>
+						<h5 className={styles.title}>{title}</h5>
 
-					<Completed
-						id={id}
-						isCurrentCompleted={isCurrentCompleted}
-						setIsCurrentCompleted={setIsCurrentCompleted}
-						createdAt={createdAt}
-						title={title}
-					/>
+						<section>
+							<h6 style={{ display: "inline" }}>Completed:</h6>
+							<p style={{ display: "inline" }}>{` ${isCompleted}`}</p>
+						</section>
+					</article>
 				</article>
-				<section className={styles.buttonsField}>
-					{isNew ? (
-						<>
-							<ConfirmCreateButton
-								titleRef={titleRef}
-								isCurrentCompleted={isCurrentCompleted}
-							/>
-							<CancelCreateButton />
-						</>
-					) : (
-						<>
-							{isEditing ? (
-								<SaveButton
-									{...{
-										titleRef,
-										setIsEditing,
-										isCompleted: isCurrentCompleted,
-									}}
-								/>
-							) : (
-								<EditButton setIsEditing={setIsEditing} />
-							)}
-							<RemoveButton />
-						</>
-					)}
-				</section>
-			</article>
+			</Link>
 		</li>
 	);
 };

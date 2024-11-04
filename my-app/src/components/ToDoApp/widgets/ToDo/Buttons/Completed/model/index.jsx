@@ -5,6 +5,7 @@ export const CompletedModel = ({
 	CompletedLayout,
 	otherCardInfo: { id, title, createdAt },
 }) => {
+	console.warn("id, title, createdAt::", id, title, createdAt);
 	function changeState(id, title, createdAt) {
 		return (isCompleted) => {
 			editToDo(id, { title, createdAt, isCompleted: isCompleted });

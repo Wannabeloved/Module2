@@ -1,9 +1,9 @@
 export const SaveButtonModel = ({
-	setIsEditing,
-	setSomethingIsEditing,
 	editToDo,
 	toDoInfo: { id, titleRef, isCompleted, createdAt },
 	SaveButtonLayout,
+	setIsEditing,
+	goToListPage,
 }) => {
 	const handleSave = () => {
 		editToDo(id, {
@@ -12,7 +12,6 @@ export const SaveButtonModel = ({
 			createdAt,
 		});
 		setIsEditing(false);
-		setSomethingIsEditing(false);
 	};
 
 	return <SaveButtonLayout handleSave={handleSave} />;

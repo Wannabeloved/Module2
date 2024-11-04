@@ -1,8 +1,11 @@
 import { routesList, NavLink } from "../app/router";
+import styles from "./styles.module.css";
 
-const NavEvement = ({ to, children }) => (
+const NavEvement = ({ to, children, className }) => (
 	<li>
-		<NavLink to={to}>{children}</NavLink>
+		<NavLink to={to} className={className}>
+			{children}
+		</NavLink>
 	</li>
 );
 
@@ -26,7 +29,7 @@ export const Header = () => {
 					}}
 				>
 					{routesList.map(({ route, name }) => (
-						<NavEvement key={route} to={route}>
+						<NavEvement key={route} to={route} className={styles.navLink}>
 							{name}
 						</NavEvement>
 					))}

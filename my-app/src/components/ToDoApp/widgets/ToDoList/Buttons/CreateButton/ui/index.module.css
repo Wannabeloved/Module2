@@ -1,3 +1,8 @@
 .button {
 	width: -webkit-fill-available;
+	transition: border 0.2s;
+	border: 2px solid transparent;
+	&&:hover {
+		border-color: rgb(200, 229, 255);
+	}
 }

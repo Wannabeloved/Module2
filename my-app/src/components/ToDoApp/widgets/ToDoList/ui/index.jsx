@@ -1,5 +1,4 @@
 import styles from "./styles.module.css";
-import { Search } from "./../../Search/index";
 export const ToDoListLayout = ({
 	Search,
 	list,
@@ -12,10 +11,11 @@ export const ToDoListLayout = ({
 	buttons: { SortButton, CreateButton },
 	ToDoButtons: { CancelCreateButton, ConfirmCreateButton },
 	ToDo,
+	getToDoById,
 }) => {
 	return (
 		<>
-			<article>
+			<article style={{ width: "100%" }}>
 				<Search />
 			</article>
 			<article className={styles.container}>
@@ -51,6 +51,7 @@ export const ToDoListLayout = ({
 									}}
 									setSomethingIsEditing={setSomethingIsEditing}
 									deleteToDoFromList={deleteToDoFromList}
+									getToDoById={getToDoById}
 								/>
 							);
 						})}

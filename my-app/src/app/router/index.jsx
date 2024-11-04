@@ -5,12 +5,23 @@ import { TicTacToe } from "../../components/TicTacToe";
 import { Authorization } from "../../components/Authorization";
 import { ToDoApp } from "../../components/ToDoApp";
 import { Routes, Route } from "react-router-dom";
+import { OpenedTask } from "../../components/ToDoApp/entities/ToDo/opened";
+import { OpenToDo } from "../../components/ToDoApp/widgets/OpenToDo";
 
-export { NavLink } from "react-router-dom";
+export { NavLink, Outlet, useParams } from "react-router-dom";
 
 export const routesList = [
 	{ route: "/", name: "Home", Component: List },
-	{ route: "/todo", name: "ToDoApp", Component: ToDoApp },
+	{
+		route: "/todo",
+		name: "ToDoApp",
+		Component: ToDoApp,
+		children: {
+			route: "task/:id",
+			name: "task",
+			Component: OpenToDo,
+		},
+	},
 	{ route: "/recipes", name: "Recipes", Component: Recipes },
 	{ route: "/calculator", name: "Calculator", Component: Calculator },
 	{ route: "/tictactoe", name: "TicTacToe", Component: TicTacToe },
@@ -23,8 +34,16 @@ function Router(routesList) {
 	return () => {
 		return (
 			<Routes>
-				{routesList.map(({ route, Component }) => (
-					<Route key={`view-${route}`} path={route} element={<Component />} />
+				{routesList.map(({ route, Component, children }) => (
+					<Route key={`view-${route}`} path={route} element={<Component />}>
+						{children && (
+							<Route
+								key={`view-${children.route}`}
+								path={children.route}
+								element={<children.Component />}
+							/>
+						)}
+					</Route>
 				))}
 			</Routes>
 		);
