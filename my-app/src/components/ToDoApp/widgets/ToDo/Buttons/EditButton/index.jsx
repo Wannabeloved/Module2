@@ -1,15 +1,16 @@
 import { EditButtonModel } from "./model";
 import { EditButtonLayout } from "./ui";
 
-export const EditButton = ({ setIsEditing, setSomethingIsEditing }) => {
+export const EditButton = ({ setIsEditing }) => {
 	const handleEdit = () => {
 		setIsEditing(true);
-		setSomethingIsEditing(true);
 	};
 	return (
-		<EditButtonModel
-			handleEdit={handleEdit}
-			EditButtonLayout={EditButtonLayout}
-		/>
+		<div>
+			<EditButtonModel
+				handleEdit={handleEdit}
+				EditButtonLayout={EditButtonLayout}
+			/>
+		</div>
 	);
 };

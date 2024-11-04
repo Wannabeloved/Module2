@@ -4,8 +4,13 @@ import {
 	orderByChild,
 	startAt,
 	endAt,
+	get,
 } from "firebase/database";
 import { createRef } from "./../../../shared/api/createRef";
+
+export const getFromDB = (id) => {
+	return get(createRef(`todos/${id}`));
+};
 
 export const connectRealtimeDB = (
 	callback,

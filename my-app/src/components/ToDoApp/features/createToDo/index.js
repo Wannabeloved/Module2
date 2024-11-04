@@ -13,22 +13,10 @@ export const useCreateToDo = (setList, setSomethingIsEditing) => {
 	} = useToDoRef();
 
 	const addNewToDo = () => {
-		if (checkAlredyExisting()) {
-			return; // if already existing a todo in the creating process
-		}
-
-		const setNewToDoInList = (newToDo) => {
-			setList((prev) => {
-				return [["unknown", { ...newToDo }], ...prev];
-			});
-		};
-
 		const newToDo = createToDo();
-		console.log("setNewToDoInRef!");
+		console.warn("setNewToDoInRef::", newToDo);
 		setNewToDoInRef(newToDo);
-		setNewToDoInList(newToDo);
-
-		setSomethingIsEditing(true);
+		return newToDo;
 	};
 
 	function funcForFinishCreating(resetNewToDoRef, setSomethingIsEditing) {
@@ -36,23 +24,12 @@ export const useCreateToDo = (setList, setSomethingIsEditing) => {
 		return function () {
 			console.warn("setSomethingIsEditing:: ", setSomethingIsEditing);
 			resetNewToDoRef();
-			setSomethingIsEditing(false);
 		};
 	}
-	const finishCreating = funcForFinishCreating(
-		resetNewToDoRef,
-		setSomethingIsEditing,
-	);
+	const finishCreating = funcForFinishCreating(resetNewToDoRef);
 
 	const cancelCreate = () => {
 		finishCreating();
-		setList((prev) => {
-			let newVal = prev.toSpliced(
-				prev.findIndex((el) => el[0] === "unknown"),
-				1,
-			);
-			return [...newVal];
-		});
 	};
 
 	// this is function

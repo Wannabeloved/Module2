@@ -4,6 +4,7 @@ export const ConfirmCreateButtonModel = ({
 	isCurrentCompleted,
 	ConfirmCreateButtonLayout,
 	createdAt,
+	goToListPage,
 }) => {
 	function handleConfirmCreate() {
 		sendToDB({
@@ -11,6 +12,7 @@ export const ConfirmCreateButtonModel = ({
 			isCompleted: isCurrentCompleted,
 			createdAt,
 		});
+		goToListPage();
 	}
 
 	return (

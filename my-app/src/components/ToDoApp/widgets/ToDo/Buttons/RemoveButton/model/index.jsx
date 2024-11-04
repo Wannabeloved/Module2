@@ -1,7 +1,13 @@
-export const RemoveButtonModel = ({ remove, id, RemoveButtonLayout }) => {
+export const RemoveButtonModel = ({
+	remove,
+	id,
+	RemoveButtonLayout,
+	goToListPage,
+}) => {
 	function handleRemove() {
 		if (window.confirm("Are you sure?")) {
 			remove(id);
+			goToListPage();
 		}
 	}
 

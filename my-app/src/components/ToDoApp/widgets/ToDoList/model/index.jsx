@@ -12,10 +12,14 @@ export const ToDoListModel = ({
 	buttons: { SortButton, CreateButton },
 	Search,
 	ToDo,
+	storage: { list, setList },
 }) => {
 	console.log("IM RENDER!");
-	const [list, setList] = useState([]);
 	const [somethingIsEditing, setSomethingIsEditing] = useState(false);
+
+	const getToDoById = (id) => {
+		return list.find((el) => el[0] === id);
+	};
 
 	const {
 		isNeedToSortAlphabet,
@@ -102,6 +106,7 @@ export const ToDoListModel = ({
 				ConfirmCreateButton: confirmCreateButton,
 			}}
 			ToDo={ToDo}
+			getToDoById={getToDoById}
 		/>
 	);
 };

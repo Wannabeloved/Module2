@@ -1,0 +1,8 @@
+.navLink {
+	line-height: 1.7;
+	color: #666666;
+	transition: color 0.3s;
+	&&:hover {
+		color: #6a7dfe;
+	}
+}

@@ -2,5 +2,11 @@
 	border-radius: 15px;
 	/* height: 30px; */
 	padding: 15px;
-	background-color: rgba(211, 135, 255, 0.842);
+	background-color: rgb(250, 218, 221);
+
+	transition: border 0.2s;
+	border: 2px solid transparent;
+	&&:hover {
+		border-color: rgb(211, 135, 255);
+	}
 }

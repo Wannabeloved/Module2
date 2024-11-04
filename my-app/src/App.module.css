@@ -6,3 +6,21 @@
 :global .active {
 	text-decoration: none;
 }
+
+button {
+	outline: none;
+	border: none;
+	cursor: pointer;
+}
+li {
+	list-style: none;
+}
+input {
+	outline: none;
+	border: none;
+}
+a {
+	margin: 0px;
+
+	text-decoration: none;
+}

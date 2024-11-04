@@ -2,7 +2,7 @@ import { ConfirmCreateButtonModel } from "./model";
 import { ConfirmCreateButtonLayout } from "./ui";
 
 export const ConfirmCreateButton = ({
-	functions: { sendToDB },
+	functions: { sendToDB, goToListPage },
 	titleRef,
 	isCurrentCompleted,
 	createdAt,
@@ -16,6 +16,7 @@ export const ConfirmCreateButton = ({
 				isCurrentCompleted,
 			}}
 			ConfirmCreateButtonLayout={ConfirmCreateButtonLayout}
+			goToListPage={goToListPage}
 		/>
 	);
 };
