@@ -4,9 +4,9 @@ import { Recipes } from "../../components/Recipes";
 import { TicTacToe } from "../../components/TicTacToe";
 import { Authorization } from "../../components/Authorization";
 import { ToDoApp } from "../../components/ToDoApp";
-import { Routes, Route } from "react-router-dom";
-import { OpenedTask } from "../../components/ToDoApp/entities/ToDo/opened";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { OpenToDo } from "../../components/ToDoApp/widgets/OpenToDo";
+import { Page404 } from "../../pages/Page404";
 
 export { NavLink, Outlet, useParams } from "react-router-dom";
 
@@ -45,6 +45,8 @@ function Router(routesList) {
 						)}
 					</Route>
 				))}
+				<Route path="/404" element={<Page404 />} />
+				<Route path="*" element={<Navigate to="/404" />} />
 			</Routes>
 		);
 	};

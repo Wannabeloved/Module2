@@ -5,15 +5,18 @@ export const Title = ({ title, isInEditingMode, titleRef }) => {
 	// 	if (isInEditingMode) console.log(titleRef.current?.textContent);
 	// }, 1000);
 	return (
-		<>
-			<h6>Title: </h6>
-			<p
-				className={styles.texte}
-				contentEditable={isInEditingMode}
-				ref={titleRef}
-			>
-				{title}
-			</p>
-		</>
+		<p
+			className={styles.texte}
+			contentEditable={isInEditingMode}
+			ref={titleRef}
+			style={{
+				whiteSpace: "pre-wrap",
+				outline: "none",
+				wordBreak: "break-word",
+				outline: "none",
+			}}
+		>
+			{title}
+		</p>
 	);
 };

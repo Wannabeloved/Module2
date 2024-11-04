@@ -1,20 +1,31 @@
-export const OpenToDoLayout = ({ Title, Buttons, handleClose, isLoading }) => {
+export const OpenToDoLayout = ({
+	Title,
+	Buttons,
+	handleClose,
+	isEditing,
+	hasError,
+}) => {
 	return (
 		<>
 			<article
 				style={{
 					position: "absolute",
 					width: "60vw",
-					height: "40vh",
+					minHeight: "40vh",
+					height: "fit-content",
 					backgroundColor: "white",
 					borderRadius: "1.7rem",
 					boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.2)",
-					display: "grid",
-					gridTemplateRows: "1fr 4fr",
+					display: "flex",
+					flexDirection: "column",
 					padding: "15px",
 				}}
 			>
-				<div>
+				<div
+					style={{
+						height: "50px",
+					}}
+				>
 					<button
 						style={{
 							justifySelf: "start",
@@ -25,43 +36,60 @@ export const OpenToDoLayout = ({ Title, Buttons, handleClose, isLoading }) => {
 						}}
 						onClick={handleClose || (() => {})}
 					>
-						P
+						✖
 					</button>
 				</div>
-				<div
-					style={{
-						display: "grid",
-						gridTemplateColumns: "2fr 1fr",
-						gap: "15px",
-					}}
-				>
+
+				{hasError?.hasError ? (
+					<h1 style={{ margin: "0px auto" }}>{hasError.message}</h1>
+				) : (
 					<div
 						style={{
-							textAlign: "center",
-							alignContent: "center",
 							display: "grid",
 							gridTemplateColumns: "2fr 1fr",
-							borderRadius: "1.7rem",
-							backgroundColor: true ? "rgba(255, 243, 133, 0.87)" : "white",
+							gap: "15px",
 						}}
 					>
-						<h6
-							contentEditable={false}
-							style={{ color: "black", fontSize: "2rem", outline: "none" }}
+						<div
+							style={{
+								alignContent: "center",
+								borderRadius: "1.7rem",
+								backgroundColor: isEditing
+									? "rgba(255, 243, 133, 0.87)"
+									: "white",
+								padding: "20px",
+								textWrap: "break-word",
+								whiteSpace: "pre-wrap",
+								outline: "none",
+								wordBreak: "break-all",
+							}}
 						>
-							{Title || "Loading..."}
-						</h6>
+							<h6
+								style={{
+									color: "black",
+									fontSize: "2rem",
+									outline: "none",
+
+									textWrap: "break-word",
+									whiteSpace: "pre-wrap",
+									outline: "none",
+									wordBreak: "break-all",
+								}}
+							>
+								{Title || "Loading..."}
+							</h6>
+						</div>
+						<div
+							style={{
+								display: "grid",
+								gridTemplateRows: "1fr",
+								height: "fit-content",
+							}}
+						>
+							{Buttons || "Loading..."}
+						</div>
 					</div>
-					<div
-						style={{
-							display: "grid",
-							gridTemplateRows: "1fr",
-							height: "fit-content",
-						}}
-					>
-						{Buttons || "Loading..."}
-					</div>
-				</div>
+				)}
 			</article>
 		</>
 	);

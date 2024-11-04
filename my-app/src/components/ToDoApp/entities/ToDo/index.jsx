@@ -20,8 +20,25 @@ export const ToDo = ({
 					className={styles.container}
 					style={{ "--extra-width-color": isCompleted ? "#77dd77" : "#E4717A" }}
 				>
-					<article className={styles.todo}>
-						<h5 className={styles.title}>{title}</h5>
+					<article
+						className={styles.todo}
+						style={{
+							textWrap: "nowrap",
+							textOverflow: "ellipsis",
+							overflow: "hidden",
+							whiteSpace: "nowrap",
+						}}
+					>
+						<h5
+							className={styles.title}
+							style={{
+								textOverflow: "ellipsis",
+								overflow: "hidden",
+								whiteSpace: "nowrap",
+							}}
+						>
+							{title}
+						</h5>
 
 						<section>
 							<h6 style={{ display: "inline" }}>Completed:</h6>

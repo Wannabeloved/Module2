@@ -13,6 +13,8 @@ export const OpenToDoModel = ({ OpenToDoLayout, allButtons, Title }) => {
 
 	const titleRef = useRef(null);
 
+	const [hasError, setHasError] = useState(null);
+
 	const [stage, setStage] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isEditing, setIsEditing] = useState(false);
@@ -26,17 +28,35 @@ export const OpenToDoModel = ({ OpenToDoLayout, allButtons, Title }) => {
 			setIsLoading(false);
 			setIsEditing(true);
 		} else {
-			let promise = getFromDB(id);
+			var promise = getFromDB(id);
 			promise?.then((snapshot) => {
 				if (snapshot.exists()) {
 					setStage(snapshot.val());
 					setIsLoading(false);
+					clearTimeout(timeout);
 				} else {
-					// 404
+					setHasError({
+						hasError: true,
+						message: "404: Not Found",
+					});
+					clearPromise();
+					clearTimeout(timeout);
 				}
 			});
+			function clearPromise() {
+				promise = null;
+			}
+			var timeout = setTimeout(() => {
+				setHasError({
+					hasError: true,
+					message: "408: Request Timeout",
+				});
+				clearPromise();
+				clearTimeout(timeout);
+			}, 5000);
 			return () => {
-				promise = undefined;
+				clearPromise();
+				clearTimeout(timeout);
 			};
 		}
 	}, []);
@@ -93,7 +113,8 @@ export const OpenToDoModel = ({ OpenToDoLayout, allButtons, Title }) => {
 			Buttons={isLoading ? null : Buttons()}
 			Title={isLoading ? null : title()}
 			handleClose={isCreated ? handleCancelCreate : goToListPage}
-			isLoading={isLoading}
+			isEditing={isEditing}
+			hasError={hasError}
 		/>
 	);
 };
