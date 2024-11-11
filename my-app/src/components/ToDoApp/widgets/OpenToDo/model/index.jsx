@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
-import { getFromDB } from "../../../features/getToDo";
+import { getFromDB } from "../../../features/connectWithDB";
 import { useEffect } from "react";
 import { useCreateToDo } from "../../../features/createToDo";
 

@@ -1,22 +1,13 @@
 import { CompletedModel } from "./model";
 import { CompletedLayout } from "./ui";
 
-import { useEditToDo } from "../../../../features/editToDo";
-
-export const Completed = ({
-	isCurrentCompleted,
-	setIsCurrentCompleted,
-	otherCardInfo, // id, title, createdAt
-}) => {
-	const editToDo = useEditToDo();
+export const Completed = ({ id, patchCurrentTask }) => {
 	return (
 		<CompletedModel
 			CompletedLayout={CompletedLayout}
-			editToDo={editToDo}
 			{...{
-				isCurrentCompleted,
-				setIsCurrentCompleted,
-				otherCardInfo,
+				id,
+				patchCurrentTask,
 			}}
 		/>
 	);

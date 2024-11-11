@@ -1,19 +1,20 @@
+import { useContext } from "react";
+import { CurrentToDoContext } from "../../../../../contexts/CurrentToDoContext";
+
 export const ConfirmCreateButtonModel = ({
+	getTitle,
 	sendToDB,
-	titleRef,
-	isCurrentCompleted,
+	handleClose,
 	ConfirmCreateButtonLayout,
-	createdAt,
-	goToListPage,
 }) => {
-	function handleConfirmCreate() {
+	const { currentTask } = useContext(CurrentToDoContext);
+	const handleConfirmCreate = () => {
 		sendToDB({
-			title: titleRef.current.textContent,
-			isCompleted: isCurrentCompleted,
-			createdAt,
+			...currentTask,
+			title: getTitle(),
 		});
-		goToListPage();
-	}
+		handleClose();
+	};
 
 	return (
 		<ConfirmCreateButtonLayout handleConfirmCreate={handleConfirmCreate} />

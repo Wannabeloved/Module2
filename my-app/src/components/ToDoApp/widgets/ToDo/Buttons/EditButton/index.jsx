@@ -2,13 +2,10 @@ import { EditButtonModel } from "./model";
 import { EditButtonLayout } from "./ui";
 
 export const EditButton = ({ setIsEditing }) => {
-	const handleEdit = () => {
-		setIsEditing(true);
-	};
 	return (
 		<div>
 			<EditButtonModel
-				handleEdit={handleEdit}
+				setIsEditing={setIsEditing}
 				EditButtonLayout={EditButtonLayout}
 			/>
 		</div>

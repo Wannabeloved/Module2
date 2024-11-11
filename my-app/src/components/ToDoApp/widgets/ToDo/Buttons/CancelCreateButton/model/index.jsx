@@ -1,10 +1,6 @@
 export const CancelCreateButtonModel = ({
-	cancelCreate,
+	handleCancelCreate,
 	CancelCreateButtonLayout,
 }) => {
-	function handleCancelCreate() {
-		cancelCreate();
-	}
-
 	return <CancelCreateButtonLayout handleCancelCreate={handleCancelCreate} />;
 };

@@ -1,16 +1,18 @@
+import { useContext } from "react";
+import { CurrentToDoContext } from "../../../../../contexts/CurrentToDoContext";
 export const SaveButtonModel = ({
+	id,
+	getTitle,
 	editToDo,
-	toDoInfo: { id, titleRef, isCompleted, createdAt },
-	SaveButtonLayout,
 	setIsEditing,
-	goToListPage,
+	SaveButtonLayout,
 }) => {
+	const { patchCurrentTask } = useContext(CurrentToDoContext);
 	const handleSave = () => {
-		editToDo(id, {
-			title: titleRef.current.textContent,
-			isCompleted,
-			createdAt,
-		});
+		let newTitle = getTitle();
+		console.log("newTitle", newTitle);
+		patchCurrentTask({ title: newTitle });
+		editToDo(id, { title: newTitle });
 		setIsEditing(false);
 	};
 

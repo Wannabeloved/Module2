@@ -5,7 +5,7 @@ import { TicTacToe } from "../../components/TicTacToe";
 import { Authorization } from "../../components/Authorization";
 import { ToDoApp } from "../../components/ToDoApp";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { OpenToDo } from "../../components/ToDoApp/widgets/OpenToDo";
+import { OpenField } from "../../components/ToDoApp/entities/ToDo/OpenField";
 import { Page404 } from "../../pages/Page404";
 
 export { NavLink, Outlet, useParams } from "react-router-dom";
@@ -19,7 +19,7 @@ export const routesList = [
 		children: {
 			route: "task/:id",
 			name: "task",
-			Component: OpenToDo,
+			Component: OpenField,
 		},
 	},
 	{ route: "/recipes", name: "Recipes", Component: Recipes },

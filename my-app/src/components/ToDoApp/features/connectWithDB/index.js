@@ -1,14 +1,14 @@
 import { connectRealtimeDB } from "./api/connectRealtimeDB";
-import { useConnectRealtimeDB } from "./model/useConnectRealtimeDB";
+import { useConnectController } from "./model/useConnectRealtimeDB";
 
-export { getFromDB } from "./api/connectRealtimeDB";
+export { getFromDBById } from "./api/connectRealtimeDB";
 
-export const useGetToDo = (setStorage) => {
+export const useConnectWithDB = (setStorage) => {
 	const {
 		isNeedToSortAlphabet,
 		setIsNeedToSortAlphabet,
 		setSubstringToSearch,
-	} = useConnectRealtimeDB(connectRealtimeDB, setStorage);
+	} = useConnectController(connectRealtimeDB, setStorage);
 
 	return {
 		isNeedToSortAlphabet,

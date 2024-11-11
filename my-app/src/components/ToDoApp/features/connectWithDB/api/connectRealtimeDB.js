@@ -6,9 +6,9 @@ import {
 	endAt,
 	get,
 } from "firebase/database";
-import { createRef } from "./../../../shared/api/createRef";
+import { createRef } from "../../../shared/api/createRef";
 
-export const getFromDB = (id) => {
+export const getFromDBById = (id) => {
 	return get(createRef(`todos/${id}`));
 };
 
@@ -17,16 +17,18 @@ export const connectRealtimeDB = (
 	substring = "",
 	orderBy = "createdAt",
 ) => {
-	let queryForTodoRef = [];
 	if (substring.length > 0) {
 		orderBy = "title";
-		queryForTodoRef = [startAt(substring), endAt(substring + "\uf8ff")];
+		var queryForTodoRef = [startAt(substring), endAt(substring + "\uf8ff")];
 	}
-	const todoRef = query(createRef("todos"), orderByChild(orderBy));
 
-	const filteredTodoRef = query(todoRef, ...queryForTodoRef);
+	const todoRef = query(
+		createRef("todos"),
+		orderByChild(orderBy),
+		...(queryForTodoRef || []),
+	);
 
-	return onValue(filteredTodoRef, (snapshot) => {
+	return onValue(todoRef, (snapshot) => {
 		const newList = [];
 		snapshot.forEach((child) => {
 			newList.push([child.key, { ...child.val() }]);

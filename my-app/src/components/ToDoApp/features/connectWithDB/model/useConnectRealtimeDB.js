@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-export const useConnectRealtimeDB = (connectRealtimeDB, setStorage) => {
+export const useConnectController = (connectDB, setStorage) => {
 	const [isNeedToSortAlphabet, setIsNeedToSortAlphabet] = useState(true);
 	const [substringToSearch, setSubstringToSearch] = useState("");
 	useEffect(() => {
 		const howSort = isNeedToSortAlphabet ? "title" : "createdAt";
-		return connectRealtimeDB(
+		return connectDB(
 			(newList) => {
 				setStorage(() => {
 					return isNeedToSortAlphabet ? newList : newList.reverse();

@@ -1,6 +1,6 @@
 import { updateInDB } from "./api/updateInDB";
-import { funcForEditToDo } from "./model/EditToDo";
+import { useFuncForEditToDo } from "./model/EditToDo";
 
 export const useEditToDo = () => {
-	return funcForEditToDo(updateInDB);
+	return useFuncForEditToDo(updateInDB);
 };

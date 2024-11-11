@@ -1,13 +1,11 @@
-export const RemoveButtonModel = ({
-	remove,
-	id,
-	RemoveButtonLayout,
-	goToListPage,
-}) => {
+import { useRemoveToDo } from "../../../../../features/removeToDo";
+
+export const RemoveButtonModel = ({ id, RemoveButtonLayout, handleClose }) => {
+	const remove = useRemoveToDo();
 	function handleRemove() {
 		if (window.confirm("Are you sure?")) {
 			remove(id);
-			goToListPage();
+			handleClose();
 		}
 	}
 

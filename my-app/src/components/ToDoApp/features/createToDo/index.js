@@ -1,35 +1,22 @@
 import { funcForSendToDB } from "./api/sendToDB";
 import { createToDo } from "./model/createToDo";
-import { useToDoRef } from "./model/useToDoRef";
 import { createRef } from "../../shared/api/createRef";
 
-export const useCreateToDo = (setList, setSomethingIsEditing) => {
-	const {
-		getNewToDoInRef,
-		setNewToDoInRef,
-		changeNewToDoRef,
-		resetNewToDoRef,
-		checkAlredyExisting,
-	} = useToDoRef();
+import { useContext } from "react";
+import { CurrentToDoContext } from "../../contexts/CurrentToDoContext";
+
+export const useCreateToDo = () => {
+	const { setCurrentTask } = useContext(CurrentToDoContext);
 
 	const addNewToDo = () => {
 		const newToDo = createToDo();
 		console.warn("setNewToDoInRef::", newToDo);
-		setNewToDoInRef(newToDo);
+		setCurrentTask(newToDo);
 		return newToDo;
 	};
 
-	function funcForFinishCreating(resetNewToDoRef, setSomethingIsEditing) {
-		console.log("setSomethingIsEditing:: ", setSomethingIsEditing);
-		return function () {
-			console.warn("setSomethingIsEditing:: ", setSomethingIsEditing);
-			resetNewToDoRef();
-		};
-	}
-	const finishCreating = funcForFinishCreating(resetNewToDoRef);
-
-	const cancelCreate = () => {
-		finishCreating();
+	const finishCreating = () => {
+		setCurrentTask({});
 	};
 
 	// this is function
@@ -41,7 +28,6 @@ export const useCreateToDo = (setList, setSomethingIsEditing) => {
 	return {
 		addNewToDo,
 		sendToDB,
-		cancelCreate,
-		changeNewToDoRef,
+		finishCreating,
 	};
 };

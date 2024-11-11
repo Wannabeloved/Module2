@@ -1,10 +1,10 @@
 import { CancelCreateButtonModel } from "./model";
 import { CancelCreateButtonLayout } from "./ui";
 
-export const CancelCreateButton = ({ cancelCreate }) => {
+export const CancelCreateButton = ({ handleCancelCreate }) => {
 	return (
 		<CancelCreateButtonModel
-			cancelCreate={cancelCreate}
+			handleCancelCreate={handleCancelCreate}
 			CancelCreateButtonLayout={CancelCreateButtonLayout}
 		/>
 	);

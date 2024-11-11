@@ -1,22 +1,13 @@
 import { ConfirmCreateButtonModel } from "./model";
 import { ConfirmCreateButtonLayout } from "./ui";
 
-export const ConfirmCreateButton = ({
-	functions: { sendToDB, goToListPage },
-	titleRef,
-	isCurrentCompleted,
-	createdAt,
-}) => {
+export const ConfirmCreateButton = ({ getTitle, sendToDB, handleClose }) => {
 	return (
 		<ConfirmCreateButtonModel
+			getTitle={getTitle}
 			sendToDB={sendToDB}
-			createdAt={createdAt}
-			{...{
-				titleRef,
-				isCurrentCompleted,
-			}}
+			handleClose={handleClose}
 			ConfirmCreateButtonLayout={ConfirmCreateButtonLayout}
-			goToListPage={goToListPage}
 		/>
 	);
 };

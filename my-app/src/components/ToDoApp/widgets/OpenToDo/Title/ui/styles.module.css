@@ -1,0 +1,24 @@
+.title {
+	animation: title-appearance 0.5s;
+}
+
+.plug {
+	display: block;
+	width: 55%;
+	height: 1em;
+	border-radius: 10px;
+
+	color: transparent;
+	background: linear-gradient(100deg, #eceff1 30%, #e2e2e2 50%, #eceff1 70%);
+	background-size: 400%;
+	animation: loading 1s ease-in-out infinite;
+}
+
+@keyframes loading {
+	0% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0 50%;
+	}
+}

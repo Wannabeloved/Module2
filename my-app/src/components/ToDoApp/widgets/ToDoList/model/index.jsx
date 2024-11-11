@@ -1,31 +1,30 @@
 import { useState } from "react";
 
-import { useGetToDo } from "../../../features/getToDo";
+import { useConnectWithDB } from "../../../features/connectWithDB";
 import { useCreateToDo } from "../../../features/createToDo";
 import { useEditToDo } from "../../../features/editToDo";
 import { useRemoveToDo } from "../../../features/removeToDo";
-import { CancelCreateButton } from "./../../ToDo/Buttons/CancelCreateButton";
-import { ConfirmCreateButton } from "../../ToDo/Buttons/ConfirmCreateButton";
+
+import { useContext } from "react";
+import { ToDoListContext } from "../../../contexts/ToDoListContext";
 
 export const ToDoListModel = ({
 	ToDoListLayout,
 	buttons: { SortButton, CreateButton },
 	Search,
 	ToDo,
-	storage: { list, setList },
+	children,
 }) => {
-	console.log("IM RENDER!");
+	const { list, setList } = useContext(ToDoListContext);
+	console.warn("list is rendered:: ", list);
 	const [somethingIsEditing, setSomethingIsEditing] = useState(false);
-
-	const getToDoById = (id) => {
-		return list.find((el) => el[0] === id);
-	};
 
 	const {
 		isNeedToSortAlphabet,
 		setIsNeedToSortAlphabet,
 		setSubstringToSearch,
-	} = useGetToDo(setList);
+	} = useConnectWithDB(setList);
+
 	const { addNewToDo, sendToDB, cancelCreate, changeNewToDoRef } =
 		useCreateToDo(setList, setSomethingIsEditing);
 	const { editToDo } = useEditToDo();
@@ -66,25 +65,6 @@ export const ToDoListModel = ({
 			/>
 		);
 	};
-	const cancelCreateButton = ({ setIsEditing }) => {
-		return (
-			<CancelCreateButton
-				cancelCreate={cancelCreate}
-				setIsEditing={setIsEditing}
-			/>
-		);
-	};
-	const confirmCreateButton = ({ titleRef, isCurrentCompleted, createdAt }) => {
-		return (
-			<ConfirmCreateButton
-				functions={{ sendToDB }}
-				titleRef={titleRef}
-				isCurrentCompleted={isCurrentCompleted}
-				setSomethingIsEditing={setSomethingIsEditing}
-				createdAt={createdAt}
-			/>
-		);
-	};
 
 	return (
 		<ToDoListLayout
@@ -101,12 +81,9 @@ export const ToDoListModel = ({
 				SortButton: sortButton,
 				CreateButton: createButton,
 			}}
-			ToDoButtons={{
-				CancelCreateButton: cancelCreateButton,
-				ConfirmCreateButton: confirmCreateButton,
-			}}
 			ToDo={ToDo}
-			getToDoById={getToDoById}
-		/>
+		>
+			{children}
+		</ToDoListLayout>
 	);
 };

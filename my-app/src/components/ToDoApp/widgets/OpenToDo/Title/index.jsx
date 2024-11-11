@@ -1,22 +1,12 @@
-import styles from "./Title.module.css";
+import { TitleModel } from "./model";
+import { TitleLayout } from "./ui";
 
-export const Title = ({ title, isInEditingMode, titleRef }) => {
-	// setInterval(() => {
-	// 	if (isInEditingMode) console.log(titleRef.current?.textContent);
-	// }, 1000);
+export const Title = ({ isEditing, titleRef }) => {
 	return (
-		<p
-			className={styles.texte}
-			contentEditable={isInEditingMode}
-			ref={titleRef}
-			style={{
-				whiteSpace: "pre-wrap",
-				outline: "none",
-				wordBreak: "break-word",
-				outline: "none",
-			}}
-		>
-			{title}
-		</p>
+		<TitleModel
+			TitleLayout={TitleLayout}
+			isEditing={isEditing}
+			titleRef={titleRef}
+		/>
 	);
 };

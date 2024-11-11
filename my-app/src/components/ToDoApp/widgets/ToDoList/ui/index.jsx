@@ -2,16 +2,9 @@ import styles from "./styles.module.css";
 export const ToDoListLayout = ({
 	Search,
 	list,
-	forList: { addToDoToList, deleteToDoFromList },
-	forCreate: { sendToDB, cancelCreate, changeNewToDoRef },
-	forRemove: { removeToDo },
-	forEdit: { editToDo },
-	somethingIsEditing,
-	setSomethingIsEditing,
 	buttons: { SortButton, CreateButton },
-	ToDoButtons: { CancelCreateButton, ConfirmCreateButton },
 	ToDo,
-	getToDoById,
+	children,
 }) => {
 	return (
 		<>
@@ -26,38 +19,16 @@ export const ToDoListLayout = ({
 				<section className={styles.listField}>
 					<ul className={styles.todoList}>
 						{list?.map(([key, el]) => {
-							const { title, isCompleted, isNew, createdAt } = el;
-							console.log("el:: ", el);
+							const { title, isCompleted } = el;
+							console.warn("el:: ", el);
 							return (
-								<ToDo
-									key={key}
-									changeNewToDoRef={changeNewToDoRef}
-									cancelCreate={cancelCreate}
-									todoInfo={{
-										id: key,
-										title,
-										isCompleted,
-										isNew,
-										createdAt,
-									}}
-									dbRequests={{
-										sendToDB,
-										editToDo,
-										removeToDo,
-									}}
-									Buttons={{
-										CancelCreateButton,
-										ConfirmCreateButton,
-									}}
-									setSomethingIsEditing={setSomethingIsEditing}
-									deleteToDoFromList={deleteToDoFromList}
-									getToDoById={getToDoById}
-								/>
+								<ToDo key={key} taskInfo={{ id: key, title, isCompleted }} />
 							);
 						})}
 					</ul>
 				</section>
 			</article>
+			{children}
 		</>
 	);
 };
