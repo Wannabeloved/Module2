@@ -1,6 +1,6 @@
 .container {
 	position: absolute;
-	width: 60vw;
+	width: clamp(500px, 60vw, 700px);
 	min-height: 40vh;
 	height: fit-content;
 	background-color: white;
@@ -47,5 +47,6 @@
 .buttonsContainer {
 	display: grid;
 	grid-template-rows: 1fr;
+	gap: 5px;
 	height: fit-content;
 }
