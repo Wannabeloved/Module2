@@ -1,12 +1,12 @@
 import { useState, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { CurrentToDoContext } from "../../../../contexts/CurrentToDoContext";
+import { CurrentToDoContext } from "../../../contexts/CurrentToDoContext";
 
 import { OpenFieldCreatingModel } from "../creating/model";
 import { OpenFieldExistingModel } from "../existing/model";
 
-import { Title } from "../../../../widgets/OpenToDo/Title";
+import { Title } from "./Title";
 
 import { useParams } from "react-router-dom";
 

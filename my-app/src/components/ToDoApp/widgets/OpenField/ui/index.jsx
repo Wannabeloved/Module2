@@ -21,7 +21,7 @@ export const OpenFieldLayout = ({
 				</div>
 
 				{error ? (
-					<h1 style={{ margin: "0px auto" }}>{"error"}</h1>
+					<h1 style={{ margin: "0px auto" }}>{error.message || "error"}</h1>
 				) : (
 					<div className={styles.fieldContainer}>
 						<div

@@ -1,7 +1,7 @@
-import { useCreateToDo } from "../../../../../features/createToDo";
+import { useCreateToDo } from "../../../../features/createToDo";
 
-import { ConfirmCreateButton } from "../../../../../widgets/ToDo/Buttons/ConfirmCreateButton";
-import { CancelCreateButton } from "../../../../../widgets/ToDo/Buttons/CancelCreateButton";
+import { ConfirmCreateButton } from "../../Buttons/ConfirmCreateButton";
+import { CancelCreateButton } from "../../Buttons/CancelCreateButton";
 
 import { useEffect } from "react";
 

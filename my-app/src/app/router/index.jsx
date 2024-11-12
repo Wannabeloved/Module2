@@ -5,7 +5,7 @@ import { TicTacToe } from "../../components/TicTacToe";
 import { Authorization } from "../../components/Authorization";
 import { ToDoApp } from "../../components/ToDoApp";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { OpenField } from "../../components/ToDoApp/entities/ToDo/OpenField";
+import { OpenField } from "../../components/ToDoApp/widgets/OpenField";
 import { Page404 } from "../../pages/Page404";
 
 export { NavLink, Outlet, useParams } from "react-router-dom";

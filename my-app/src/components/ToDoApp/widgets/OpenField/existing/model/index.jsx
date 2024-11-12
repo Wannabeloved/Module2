@@ -1,14 +1,14 @@
-import { EditButton } from "../../../../../widgets/ToDo/Buttons/EditButton";
-import { SaveButton } from "../../../../../widgets/ToDo/Buttons/SaveButton";
-import { RemoveButton } from "../../../../../widgets/ToDo/Buttons/RemoveButton";
-import { Completed } from "../../../../../widgets/ToDo/Buttons/Completed";
+import { EditButton } from "../../Buttons/EditButton";
+import { SaveButton } from "../../Buttons/SaveButton";
+import { RemoveButton } from "../../Buttons/RemoveButton";
+import { Completed } from "../../Buttons/Completed";
 
 import { useState } from "react";
 
 import { useContext, useEffect } from "react";
-import { CurrentToDoContext } from "../../../../../contexts/CurrentToDoContext";
-import { useGetFromListById } from "../../../../../hooks/useGetFromListById";
-import { ToDoListContext } from "../../../../../contexts/ToDoListContext";
+import { CurrentToDoContext } from "../../../../contexts/CurrentToDoContext";
+import { useGetFromListById } from "../../../../hooks/useGetFromListById";
+import { ToDoListContext } from "../../../../contexts/ToDoListContext";
 
 export const OpenFieldExistingModel = ({
 	handleClose,
@@ -26,6 +26,7 @@ export const OpenFieldExistingModel = ({
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const [isTimeout, setIsTimeout] = useState(false);
 
 	useEffect(() => {
 		if (!id) return;
@@ -36,7 +37,7 @@ export const OpenFieldExistingModel = ({
 			if (task?.[0]) {
 				resolve(task);
 			} else {
-				reject("Task not found");
+				reject({ message: "Task not found" });
 			}
 		});
 		getTask
@@ -76,6 +77,7 @@ export const OpenFieldExistingModel = ({
 			handleClose={handleClose}
 			error={error}
 			isLoading={isLoading}
+			isTimeout={isTimeout}
 			isEditing={isEditing}
 			currentTask={currentTask}
 		/>
