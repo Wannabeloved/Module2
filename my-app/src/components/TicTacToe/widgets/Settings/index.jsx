@@ -1,36 +1,13 @@
 import { SettingsField } from "./SettingsField/SettingsField";
 import { Button } from "../../entities/Buttons/Button";
 
-import PropTypes from "prop-types";
+import { store } from "../../store";
 
-export const Settings = ({
-	resetGame,
-	setColumns,
-	cellsCountRange,
-	setWinLineCount,
-	currentColumns,
-	winLineCount,
-}) => {
-	Settings.propTypes = {
-		resetGame: PropTypes.func,
-		setColumns: PropTypes.func,
-		cellsCountRange: PropTypes.arrayOf(PropTypes.number),
-	};
+export const Settings = () => {
 	return (
 		<>
-			<SettingsField
-				resetGame={resetGame}
-				setColumns={setColumns}
-				range={cellsCountRange}
-				setWinLineCount={setWinLineCount}
-				currentColumns={currentColumns}
-				winLineCount={winLineCount}
-			/>
-			<Button
-				onClick={() => {
-					resetGame();
-				}}
-			>
+			<SettingsField />
+			<Button onClick={() => store.dispatch({ type: "START_GAME" })}>
 				start
 			</Button>
 		</>

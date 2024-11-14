@@ -1,9 +1,7 @@
-import PropTypes from "prop-types";
-
-export const InformationLayout = ({ whoWin, isFinita, children }) => {
-	InformationLayout.propTypes = {
-		whoWin: PropTypes.string,
-	};
-
-	return <>{children}</>;
+export const InformationLayout = ({
+	isGameOn,
+	GameInformation,
+	SettingsInformation,
+}) => {
+	return <>{isGameOn ? <GameInformation /> : <SettingsInformation />}</>;
 };

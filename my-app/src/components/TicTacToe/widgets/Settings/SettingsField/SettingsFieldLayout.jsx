@@ -1,17 +1,17 @@
 import styles from "./SettingsField.module.css";
 export const SettingsFieldLayout = ({
+	columnsRange,
 	SetColumnsButton,
-	range,
-	SetLineOption,
-	currentColumns,
 	Select,
+	columns,
 }) => {
-	let setColumnsButtons = []; // жалко нельзя тип указать(
-	for (let i = range[0]; i <= range[1]; i++) {
+	let setColumnsButtons = [];
+	for (let i = columnsRange[0]; i <= columnsRange[1]; i++) {
 		setColumnsButtons.push(i);
 	}
 	let setLineButtons = [];
-	for (let i = 2; i <= currentColumns; i++) {
+	console.log("setLineButtons::", setLineButtons);
+	for (let i = columnsRange[0]; i <= columns; i++) {
 		setLineButtons.push(i);
 	}
 
@@ -31,7 +31,7 @@ export const SettingsFieldLayout = ({
 					<h6 className={styles.title}>Ходов в ряд для победы: </h6>
 					<Select className={styles.select}>
 						{setLineButtons.map((num) => (
-							<option key={`${num}`} value={`${num}`}>
+							<option key={`${num}`} value={num}>
 								{num}
 							</option>
 						))}

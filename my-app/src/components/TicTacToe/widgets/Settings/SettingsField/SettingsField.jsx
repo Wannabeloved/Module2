@@ -1,18 +1,28 @@
+import { SettingsFieldLayout } from "./SettingsFieldLayout";
 import { Button } from "../../../entities/Buttons/Button";
 
-import { SettingsFieldLayout } from "./SettingsFieldLayout";
-export const SettingsField = ({
-	setColumns,
-	range,
-	setWinLineCount,
-	currentColumns,
-	winLineCount,
-}) => {
+import { useRerender } from "../../../hooks/useRerender";
+
+import { store } from "../../../store";
+export const SettingsField = () => {
+	const { winLineCount, columnsRange, columns } = store.getState();
+	const rerender = useRerender();
+
+	// const [, render] = useState(0);
+	console.log("IM RENDERING");
+	console.log(winLineCount, columnsRange, columns);
+	store.subscribe(rerender);
+
 	const setCustomColumns = (num) => {
+		console.log("winLineCount > num", winLineCount, num);
 		if (winLineCount > num) {
-			setWinLineCount(num);
+			store.dispatch({ type: "SET_COLUMNS_AND_WIN_LINE_COUNT", payload: num });
+			return;
 		}
-		setColumns(num);
+		store.dispatch({ type: "SET_COLUMNS", payload: num });
+	};
+	const setWinLineCount = (num) => {
+		store.dispatch({ type: "SET_WIN_LINE_COUNT", payload: num });
 	};
 
 	const SetColumnsButton = ({ children }) => {
@@ -47,9 +57,9 @@ export const SettingsField = ({
 		<>
 			<SettingsFieldLayout
 				SetColumnsButton={SetColumnsButton}
-				range={range}
-				currentColumns={currentColumns}
 				Select={Select}
+				columnsRange={columnsRange}
+				columns={columns}
 			/>
 		</>
 	);

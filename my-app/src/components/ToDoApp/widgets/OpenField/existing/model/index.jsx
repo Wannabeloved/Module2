@@ -30,16 +30,19 @@ export const OpenFieldExistingModel = ({
 
 	useEffect(() => {
 		if (!id) return;
-
-		const getTask = new Promise((resolve, reject) => {
-			const task = getByID(list, id);
-			console.log("task?.[0]", task?.[0]);
-			if (task?.[0]) {
-				resolve(task);
-			} else {
-				reject({ message: "Task not found" });
-			}
-		});
+		const controller = new AbortController();
+		const getTask = new Promise(
+			(resolve, reject) => {
+				const task = getByID(list, id);
+				console.log("task?.[0]", task?.[0]);
+				if (task?.[0]) {
+					resolve(task);
+				} else {
+					reject({ message: "Task not found" });
+				}
+			},
+			{ signal: controller.signal },
+		);
 		getTask
 			.then((task) => {
 				setCurrentTask(task[1]);
@@ -52,6 +55,9 @@ export const OpenFieldExistingModel = ({
 			.finally(() => {
 				setIsLoading(false);
 			});
+		const timeout = setTimeout(() => {
+			setIsTimeout(true);
+		}, 5000);
 
 		return () => {};
 	}, [list]);
