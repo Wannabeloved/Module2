@@ -1,21 +1,22 @@
-import { Game } from "./widgets/Game";
 import { Information } from "./widgets/Information/Information";
-import { Settings } from "./widgets/Settings";
 
-import * as settings from "./config";
+import { Outlet } from "react-router-dom";
+import { useMatch } from "react-router-dom";
 
-import { store } from "./store";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 import styles from "./index.module.css";
 export const TicTacToe = () => {
-	let { stdColumns, cellsCountRange, cellsForWin, stdSymbols } = settings;
-	// Пока так; потом можно будет реализовать управление этими вещами
-	const { isGameOn } = store.getState();
-
+	const isMatch = !!useMatch("/tictactoe");
+	const navigate = useNavigate();
+	useEffect(() => {
+		if (isMatch) navigate("settings", { replace: true });
+	}, [isMatch]);
 	return (
 		<section className={styles.main}>
 			<Information />
-			{isGameOn ? <Game /> : <Settings />}
+			<Outlet />
 		</section>
 	);
 };

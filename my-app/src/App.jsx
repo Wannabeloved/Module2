@@ -1,9 +1,12 @@
 import styles from "./App.module.css";
-import { View } from "./app/router";
 
 import { Header } from "./header/NavList";
 
+import { useRoutes } from "react-router-dom";
+import { routesList } from "./app/router";
+
 export const App = () => {
+	const router = useRoutes(routesList);
 	return (
 		<div
 			id="app"
@@ -17,7 +20,7 @@ export const App = () => {
 				id="view"
 				style={{ width: "100%", display: "flex", justifyContent: "center" }}
 			>
-				<View />
+				{router}
 			</article>
 		</div>
 	);

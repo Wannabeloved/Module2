@@ -1,13 +1,27 @@
 import { routesList, NavLink } from "../app/router";
 import styles from "./styles.module.css";
 
-const NavEvement = ({ to, children, className }) => (
-	<li>
-		<NavLink to={to} className={className}>
-			{children}
-		</NavLink>
-	</li>
-);
+const isNeed = (name) => {
+	if (name !== "Page404") {
+		return true;
+	}
+	return false;
+};
+const createNavEvement =
+	(isNeed) =>
+	({ to, className, children, name }) => {
+		// это нужно потому, что иначе и для `li`, и для `NavLink` нужен будет `key`
+		return (
+			isNeed(name) && (
+				<li>
+					<NavLink to={to} className={className}>
+						{children}
+					</NavLink>
+				</li>
+			)
+		);
+	};
+const NavElement = createNavEvement(isNeed);
 
 export const Header = () => {
 	return (
@@ -28,10 +42,15 @@ export const Header = () => {
 						gap: "60px",
 					}}
 				>
-					{routesList.map(({ route, name }) => (
-						<NavEvement key={route} to={route} className={styles.navLink}>
+					{routesList.map(({ path, name }) => (
+						<NavElement
+							key={`NavEvement-${path}`}
+							to={path}
+							className={styles.navLink}
+							name={name}
+						>
 							{name}
-						</NavEvement>
+						</NavElement>
 					))}
 				</ul>
 			</nav>

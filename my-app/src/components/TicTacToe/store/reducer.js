@@ -1,4 +1,5 @@
 import { helpers } from "./helpers";
+import { createMesh } from "./helpers";
 import { utils } from "./utils";
 
 const INITIAL_STATE = {
@@ -9,6 +10,9 @@ const INITIAL_STATE = {
 	winLineCount: 3,
 	isError: false,
 	symbols: ["x", "o"],
+	whoMoves: "x",
+	mesh: createMesh(3),
+	canMove: true,
 };
 
 export const reducer = createReducer(INITIAL_STATE, helpers, utils);

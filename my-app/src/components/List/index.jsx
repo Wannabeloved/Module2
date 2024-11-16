@@ -25,7 +25,7 @@ export const List = () => {
 	};
 
 	return (
-		<div class="app">
+		<div className="app">
 			<h1 className={styles.pageHeading}>Ввод значения</h1>
 			<p className={styles.noMarginText}>
 				Текущее значение <code>value</code>: "

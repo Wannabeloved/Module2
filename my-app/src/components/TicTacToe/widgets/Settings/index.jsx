@@ -1,15 +1,11 @@
 import { SettingsField } from "./SettingsField/SettingsField";
-import { Button } from "../../entities/Buttons/Button";
-
-import { store } from "../../store";
+import { StartButton } from "./StartButton";
 
 export const Settings = () => {
 	return (
 		<>
 			<SettingsField />
-			<Button onClick={() => store.dispatch({ type: "START_GAME" })}>
-				start
-			</Button>
+			<StartButton />
 		</>
 	);
 };
