@@ -48,6 +48,7 @@ function createReducer(initialState, helpers, utils) {
 				return { ...state, isError: true };
 
 			case "START_NEW_GAME":
+				console.log("START_NEW_GAME");
 				return helpers.newGame(state);
 			case "RESET":
 				return { ...initialState };

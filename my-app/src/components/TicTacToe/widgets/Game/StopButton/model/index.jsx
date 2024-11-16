@@ -3,20 +3,25 @@ import { useNavigate, useBlocker } from "react-router-dom";
 
 export const StopButtonModel = ({ Layout }) => {
 	const navigate = useNavigate();
-	const stopTheGame = () => {
-		store.dispatch({ type: "RESET" });
+	const navigateToSettings = () => {
 		navigate("/tictactoe");
 	};
 
-	useBlocker(
-		() => {
-			return !window.confirm("The game will be reset.\nDo you want to exit?");
-		},
-		() => {
-			const { isWin, isOverflow } = store.getState();
-			return isWin || isOverflow;
-		},
-	);
+	const reset = () => {
+		store.dispatch({ type: "RESET" });
+		return false;
+	};
 
-	return <Layout stopTheGame={stopTheGame} />;
+	useBlocker(() => {
+		const { isWin, isOverflow } = store.getState();
+		if (
+			isWin ||
+			isOverflow ||
+			window.confirm("The game will be reset.\nDo you want to exit?")
+		)
+			return reset();
+		return true;
+	});
+
+	return <Layout stopTheGame={navigateToSettings} />;
 };

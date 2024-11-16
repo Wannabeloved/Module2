@@ -59,8 +59,6 @@ export const helpers = {
 			isWin: false,
 			canMove: true,
 			mesh: createMesh(state.columns),
-			checkWin: checkWin(state.winLineCount),
-			checkOverflow: checkOverflow(state.columns),
 		};
 	},
 };
