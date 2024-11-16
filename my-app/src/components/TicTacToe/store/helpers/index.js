@@ -28,9 +28,12 @@ export const helpers = {
 
 		const canMove = !(isWin || isOverflow);
 
-		let i = state.symbols.indexOf(state.whoMoves) + 1;
-		if (i === state.symbols.length) i = 0;
-		const whoMoves = state.symbols[i];
+		let whoMoves = state.whoMoves;
+		if (canMove) {
+			let i = state.symbols.indexOf(state.whoMoves) + 1;
+			if (i === state.symbols.length) i = 0;
+			whoMoves = state.symbols[i];
+		}
 
 		console.log({
 			isWin,

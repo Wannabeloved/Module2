@@ -5,7 +5,8 @@ import { store } from "../../../store";
 import { useRerender } from "../../../hooks/useRerender";
 
 export const GameInformation = () => {
-	const { isFinal } = store.getState();
+	const { isWin, isOverflow } = store.getState();
+	const isFinal = isWin || isOverflow;
 	const rerender = useRerender();
 	store.subscribe(rerender);
 

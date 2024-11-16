@@ -1,11 +1,10 @@
-import PropTypes from "prop-types";
-
 import { EndgameInformationLayout } from "./EndgameInformationLayout";
-export const EndgameInformation = ({ whoWin, isWin }) => {
-	EndgameInformation.propTypes = {
-		whoWin: PropTypes.string,
-	};
 
-	let text = isWin ? `Выиграл: ${whoWin}` : `Ничья`;
+import { store } from "../../../../store";
+
+export const EndgameInformation = () => {
+	const { whoMoves, isWin } = store.getState();
+
+	let text = isWin ? `Выиграл: ${whoMoves}` : `Ничья`;
 	return <EndgameInformationLayout text={text} />;
 };
