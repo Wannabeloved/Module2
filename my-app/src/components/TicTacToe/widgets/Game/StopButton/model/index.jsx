@@ -7,19 +7,15 @@ export const StopButtonModel = ({ Layout }) => {
 		navigate("/tictactoe");
 	};
 
-	const reset = () => {
-		store.dispatch({ type: "RESET" });
-		return false;
-	};
+	const confirm = () =>
+		window.confirm("The game will be reset.\nDo you want to exit?");
 
 	useBlocker(() => {
-		const { isWin, isOverflow } = store.getState();
-		if (
-			isWin ||
-			isOverflow ||
-			window.confirm("The game will be reset.\nDo you want to exit?")
-		)
-			return reset();
+		const { isWin, isOverflow, movesCount } = store.getState();
+		if (isWin || isOverflow || movesCount === 0 || confirm()) {
+			store.dispatch({ type: "RESET" });
+			return false;
+		}
 		return true;
 	});
 
