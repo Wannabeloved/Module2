@@ -1,53 +1,68 @@
 import { Calculator } from "../../components/Calculator";
 import { List } from "../../components/List";
 import { Recipes } from "../../components/Recipes";
-import { TicTacToe } from "../../components/TicTacToe";
 import { Authorization } from "../../components/Authorization";
+
 import { ToDoApp } from "../../components/ToDoApp";
-import { Routes, Route, Navigate } from "react-router-dom";
 import { OpenField } from "../../components/ToDoApp/widgets/OpenField";
+
+import { TicTacToe } from "../../components/TicTacToe";
+import { Game } from "../../components/TicTacToe/widgets/Game";
+import { Settings } from "../../components/TicTacToe/widgets/Settings";
+
 import { Page404 } from "../../pages/Page404";
+
+import { Navigate } from "react-router-dom";
 
 export { NavLink, Outlet, useParams } from "react-router-dom";
 
 export const routesList = [
-	{ route: "/", name: "Home", Component: List },
+	{ path: "/", name: "Home", element: <List /> },
 	{
-		route: "/todo",
+		path: "/todo",
 		name: "ToDoApp",
-		Component: ToDoApp,
-		children: {
-			route: "task/:id",
-			name: "task",
-			Component: OpenField,
-		},
+		element: <ToDoApp />,
+		children: [
+			{
+				path: "task/:id",
+				name: "task",
+				element: <OpenField />,
+			},
+		],
 	},
-	{ route: "/recipes", name: "Recipes", Component: Recipes },
-	{ route: "/calculator", name: "Calculator", Component: Calculator },
-	{ route: "/tictactoe", name: "TicTacToe", Component: TicTacToe },
-	{ route: "/List", name: "List", Component: List },
-	{ route: "/authorization", name: "Authorization", Component: Authorization },
+	{ path: "/recipes", name: "Recipes", element: <Recipes /> },
+	{ path: "/calculator", name: "Calculator", element: <Calculator /> },
+	{
+		path: "/tictactoe",
+		name: "TicTacToe",
+		element: <TicTacToe />,
+		children: [
+			{
+				path: "game",
+				name: "TicTacToeGame",
+				element: <Game />,
+			},
+			{
+				path: "settings",
+				name: "TicTacToeSettings",
+				element: <Settings />,
+			},
+		],
+	},
+	{ path: "/List", name: "List", element: <List /> },
+	{
+		path: "/authorization",
+		name: "Authorization",
+		element: <Authorization />,
+	},
+	{
+		path: "/404",
+		name: "Page404",
+		element: <Page404 />,
+	},
+	{
+		path: "*",
+		name: "Page404",
+		element: <Navigate to="/404" />,
+	},
 ];
-
-export const View = Router(routesList);
-function Router(routesList) {
-	return () => {
-		return (
-			<Routes>
-				{routesList.map(({ route, Component, children }) => (
-					<Route key={`view-${route}`} path={route} element={<Component />}>
-						{children && (
-							<Route
-								key={`view-${children.route}`}
-								path={children.route}
-								element={<children.Component />}
-							/>
-						)}
-					</Route>
-				))}
-				<Route path="/404" element={<Page404 />} />
-				<Route path="*" element={<Navigate to="/404" />} />
-			</Routes>
-		);
-	};
-}

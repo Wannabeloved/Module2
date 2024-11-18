@@ -1,5 +1,5 @@
 import styles from "./SettingsInformation.module.css";
-export const SettingsInformationLayout = ({ columns, cellsForWin }) => {
+export const SettingsInformationLayout = ({ columns, winLineCount }) => {
 	return (
 		<div className={styles.main}>
 			<div>
@@ -8,7 +8,7 @@ export const SettingsInformationLayout = ({ columns, cellsForWin }) => {
 			</div>
 			<div>
 				<h6 className={styles.title}>Максимум ходов</h6>
-				<p className={styles.value}>{cellsForWin}</p>
+				<p className={styles.value}>{winLineCount}</p>
 			</div>
 		</div>
 	);

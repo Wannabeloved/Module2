@@ -5,6 +5,7 @@ export const OpenFieldLayout = ({
 	Buttons,
 	handleClose,
 	isEditing,
+	isTimeout,
 	isLoading,
 	error,
 }) => {
@@ -20,7 +21,7 @@ export const OpenFieldLayout = ({
 					</button>
 				</div>
 
-				{error ? (
+				{isTimeout ? (
 					<h1 style={{ margin: "0px auto" }}>{error.message || "error"}</h1>
 				) : (
 					<div className={styles.fieldContainer}>

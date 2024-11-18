@@ -1,30 +1,17 @@
-import { useState } from "react";
-
-/* 
-	В качестве параметров хук принимает 'mesh' (массив в котором описано игровое поле) и количество ходов для победы 'cellsForWin' (сколько нужно собрать ходов в одну линию).
-
-	Возвращает:
-		функцию 'isWin' (
-			Принимает: 
-				индекс строки в сетке, индекс символа в строке, символ
-			Возвращает: 
-				true если выиграл,
-				false если нет
-	 	);
-*/
-export const useWinChecker = (mesh) => {
-	/*
+/*
 		Все функции должны находиться в массиве 'allCheckers' чтобы иметь возможность быть вызванными при проверке выигрыша (в функции 'isWin').
 		Функции должны возвращать значение типа 'Boolean' (true в случае выигрыша и false в остальных случаях).
 	*/
-	/*
+/*
 		В целом описание работы алгоритма выглядит следующим образом:
 
 		Вызывается функция 'isWin' которая вызывает проверки, указатели на которые лежат в 'allCheckers'.
 		Начиная с указанного индекса, по одной, проводится проверка каждой прямой (сначала в одну сторону, потом, по этомй же прямой, в противоположную);
 		Когда все проверки выполнены, из функции 'isWin' возвращается Boolean значение true, если хотябы одна из проверок была успешна, и false, если ни одна из проверок не была пройдена.
 	*/
-	const isDiagonalWin = (indexOfRow, indexInRow, symbol, cellsForWin) => {
+
+const checkers = [
+	function isDiagonalWin(mesh, indexOfRow, indexInRow, symbol, cellsForWin) {
 		let winCells = 1;
 		let max_val = cellsForWin + 1;
 		for (let i = 1; i < cellsForWin + 1; i++) {
@@ -73,9 +60,9 @@ export const useWinChecker = (mesh) => {
 		}
 
 		return winCells >= cellsForWin;
-	};
+	},
 
-	const isVerticalWin = (indexOfRow, indexInRow, symbol, cellsForWin) => {
+	function isVerticalWin(mesh, indexOfRow, indexInRow, symbol, cellsForWin) {
 		let winCells = 1;
 		let max_val = cellsForWin + 1;
 		for (let i = 1; i < max_val; i++) {
@@ -100,8 +87,8 @@ export const useWinChecker = (mesh) => {
 		}
 
 		return winCells >= cellsForWin;
-	};
-	const isHorizontalWin = (indexOfRow, indexInRow, symbol, cellsForWin) => {
+	},
+	function isHorizontalWin(mesh, indexOfRow, indexInRow, symbol, cellsForWin) {
 		let winCells = 1;
 		let max_val = cellsForWin + 1;
 		for (let i = 1; i < max_val; i++) {
@@ -124,22 +111,21 @@ export const useWinChecker = (mesh) => {
 		}
 
 		return winCells >= cellsForWin;
-	};
+	},
+];
 
-	const allCheckers = [isDiagonalWin, isVerticalWin, isHorizontalWin];
-
-	const [isWin, setIsWin] = useState(false);
-
-	const checkWin = (indexOfRow, indexInRow, whoMoves, cellsForWin) => {
-		const args = [indexOfRow, indexInRow, whoMoves, cellsForWin];
-		// я бы использовал остаточные параметры, но тогда со стороны было бы не понятно какие именно аргументы нужны для работы функции
-		// const diagonal = isDiagonalWin(...args);
-		// const vertical = isVerticalWin(...args);
-		// const horisontal = isHorizontalWin(...args);
+export const checkWin = createCheckWin(checkers);
+function createCheckWin(allCheckers) {
+	return (cellsForWin, mesh, indexOfRow, indexInRow, whoMoves) => {
+		console.log("IN CHECKWIN:: ", {
+			cellsForWin,
+			mesh,
+			indexOfRow,
+			indexInRow,
+			whoMoves,
+		});
+		const args = [mesh, indexOfRow, indexInRow, whoMoves, cellsForWin];
 		let result = allCheckers.some((el) => el(...args));
-		setIsWin(result);
 		return result;
 	};
-
-	return [isWin, checkWin];
-};
+}
