@@ -1,14 +1,16 @@
 import { EndgameInformation } from "./EndgameInformation/EndgameInformation";
 import { IngameInformation } from "./IngameInformation/IngameInformation";
 
-import { store } from "../../../store";
-import { useRerender } from "../../../hooks/useRerender";
+import { useSelector } from "react-redux";
+
+import { isWinSelector } from "../../../redux-selectors/isWinSelector";
+import { isOverflowSelector } from "../../../redux-selectors/isOverflowSelector";
 
 export const GameInformation = () => {
-	const { isWin, isOverflow } = store.getState();
+	const isWin = useSelector(isWinSelector);
+	const isOverflow = useSelector(isOverflowSelector);
+
 	const isFinal = isWin || isOverflow;
-	const rerender = useRerender();
-	store.subscribe(rerender);
 
 	return <>{isFinal ? <EndgameInformation /> : <IngameInformation />}</>;
 };

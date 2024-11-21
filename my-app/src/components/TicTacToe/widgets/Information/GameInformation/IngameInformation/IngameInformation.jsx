@@ -1,10 +1,15 @@
 import { IngameInformationLayout } from "./IngameInformationLayout";
 import { ErrorInformation } from "../../ErrorInformation/ErrorInformation";
 
-import { store } from "../../../../store";
+import { useSelector } from "react-redux";
+
+import { movesCountSelector } from "../../../../redux-selectors/movesCountSelector";
+import { isErrorSelector } from "../../../../redux-selectors/isErrorSelector";
 
 export const IngameInformation = () => {
-	const { movesCount, isError } = store.getState();
+	const movesCount = useSelector(movesCountSelector);
+	const isError = useSelector(isErrorSelector);
+
 	return (
 		<IngameInformationLayout
 			movesCount={movesCount}
