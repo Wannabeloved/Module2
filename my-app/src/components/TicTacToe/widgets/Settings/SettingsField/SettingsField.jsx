@@ -1,28 +1,31 @@
 import { SettingsFieldLayout } from "./SettingsFieldLayout";
 import { Button } from "../../../entities/Buttons/Button";
 
-import { useRerender } from "../../../hooks/useRerender";
+import { useSelector } from "react-redux";
 
-import { store } from "../../../store";
+import { columnsRangeSelector } from "../../../redux-selectors/columnsRangeSelector";
+import { columnsSelector } from "../../../redux-selectors/columnsSelector";
+import { winLineCountSelector } from "../../../redux-selectors/winLineCountSelector";
+
+import { useDispatch } from "react-redux";
+
+import { setWinLineCount as setWinLineCountAction } from "../../../../../store/actions/setWinLineCount";
+import { setColumns } from "../../../../../store/actions/setColumns";
+
 export const SettingsField = () => {
-	const { winLineCount, columnsRange, columns } = store.getState();
-	const rerender = useRerender();
+	const columnsRange = useSelector(columnsRangeSelector);
+	const columns = useSelector(columnsSelector);
+	const winLineCount = useSelector(winLineCountSelector);
 
-	// const [, render] = useState(0);
-	console.log("IM RENDERING");
-	console.log(winLineCount, columnsRange, columns);
-	store.subscribe(rerender);
+	const dispatch = useDispatch();
 
 	const setCustomColumns = (num) => {
 		console.log("winLineCount > num", winLineCount, num);
-		if (winLineCount > num) {
-			store.dispatch({ type: "SET_COLUMNS_AND_WIN_LINE_COUNT", payload: num });
-			return;
-		}
-		store.dispatch({ type: "SET_COLUMNS", payload: num });
+		if (winLineCount > num) dispatch(setWinLineCountAction(num));
+		dispatch(setColumns(num));
 	};
 	const setWinLineCount = (num) => {
-		store.dispatch({ type: "SET_WIN_LINE_COUNT", payload: num });
+		dispatch(setWinLineCountAction(num));
 	};
 
 	const SetColumnsButton = ({ children }) => {

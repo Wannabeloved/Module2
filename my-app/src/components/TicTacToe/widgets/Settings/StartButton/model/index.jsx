@@ -1,11 +1,13 @@
-import { store } from "../../../../store";
+import { useDispatch } from "react-redux";
+import { START_NEW_GAME } from "./../../../../../../store/actions";
 
 import { useNavigate } from "react-router-dom";
 
 export const StartButtonModel = ({ Layout }) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const startGame = () => {
-		store.dispatch({ type: "START_NEW_GAME" });
+		dispatch(START_NEW_GAME);
 		navigate("/tictactoe/game");
 	};
 	return <Layout startGame={startGame}>start</Layout>;

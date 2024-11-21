@@ -1,11 +1,13 @@
-import { checkWin } from "./winChecker";
-import { checkOverflow } from "./overflowChecker";
-import { createMesh } from "./createMesh";
-import { setSymbolInMesh } from "./setSymbolInMesh";
-export { checkWin, checkOverflow, createMesh };
+import { checkWin } from "../helpers";
+import { checkOverflow } from "../helpers";
+import { setSymbolInMesh } from "../helpers/setSymbolInMesh";
 
-export const helpers = {
-	move(state, { indexOfRow, indexInRow }) {
+export const move =
+	({ indexOfRow, indexInRow }) =>
+	(dispatch, getState) => {
+		console.log("MOVE IS WORK!!");
+		const { tictactoeState: state } = getState();
+		console.dir(state);
 		if (!state.canMove) return state;
 		console.warn("IN MOVE:: ", { indexOfRow, indexInRow });
 
@@ -41,27 +43,28 @@ export const helpers = {
 			canMove,
 		});
 
-		return {
-			...state,
-			whoMoves,
-			movesCount,
-			isWin,
-			isOverflow,
-			canMove,
-			mesh,
-		};
-	},
+		console.dir({
+			type: "MOVE",
+			payload: {
+				whoMoves,
+				movesCount,
+				isWin,
+				isOverflow,
+				canMove,
+				mesh,
+			},
+		});
 
-	newGame(state) {
-		return {
-			...state,
-			movesCount: 0,
-			isGameOn: true,
-			isError: false,
-			isOverflow: false,
-			isWin: false,
-			canMove: true,
-			mesh: createMesh(state.columns),
-		};
-	},
-};
+		dispatch({
+			type: "MOVE",
+			payload: {
+				whoMoves,
+				movesCount,
+				isWin,
+				isOverflow,
+				canMove,
+				mesh,
+			},
+		});
+		return true;
+	};

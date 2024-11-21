@@ -1,6 +1,6 @@
-import { helpers } from "./helpers";
-import { createMesh } from "./helpers";
-import { utils } from "./utils";
+import { helpers } from "../helpers";
+import { createMesh } from "../helpers";
+import { utils } from "../utils";
 
 const INITIAL_STATE = {
 	isGameOn: false,
@@ -15,7 +15,7 @@ const INITIAL_STATE = {
 	canMove: true,
 };
 
-export const reducer = createReducer(INITIAL_STATE, helpers, utils);
+export const tictactoeReducer = createReducer(INITIAL_STATE, helpers, utils);
 
 function createReducer(initialState, helpers, utils) {
 	return (state = initialState, { type, payload }) => {
@@ -25,13 +25,10 @@ function createReducer(initialState, helpers, utils) {
 		// все действия "настройки" начинаются с "SET"
 		switch (type) {
 			case "SET_COLUMNS":
-				console.log(`SET_COLUMNS WORK: ${payload}`);
-				const columns = utils.convertToNumber(payload, "SET_COLUMNS"); // тяжело без типизации((
-				console.log(columns);
+				const columns = utils.convertToNumber(payload, "SET_COLUMNS");
 				return { ...state, columns };
 
 			case "SET_WIN_LINE_COUNT":
-				console.log(`IM WORK: ${payload}`);
 				const winLineCount = utils.convertToNumber(
 					payload,
 					"SET_WIN_LINE_COUNT",
@@ -48,13 +45,27 @@ function createReducer(initialState, helpers, utils) {
 				return { ...state, isError: true };
 
 			case "START_NEW_GAME":
-				console.log("START_NEW_GAME");
-				return helpers.newGame(state);
+				return {
+					...state,
+					isError: false,
+					isOverflow: false,
+					isWin: false,
+
+					movesCount: 0,
+					canMove: true,
+
+					mesh: createMesh(state.columns),
+					isGameOn: true,
+				};
+
 			case "RESET":
 				return { ...initialState };
 
 			case "MOVE":
-				return helpers.move(state, payload);
+				return {
+					...state,
+					...payload,
+				};
 
 			default:
 				console.warn(`No handler for ${type} type of action`);
