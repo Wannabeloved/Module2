@@ -6,6 +6,10 @@ export const ToDoListLayout = ({
 	ToDo,
 	children,
 }) => {
+	console.log(
+		"list::",
+		list.map(() => 1),
+	);
 	return (
 		<>
 			<article style={{ width: "100%" }}>
@@ -18,12 +22,12 @@ export const ToDoListLayout = ({
 				</div>
 				<section className={styles.listField}>
 					<ul className={styles.todoList}>
-						{list?.map(([key, el]) => {
-							const { title, isCompleted } = el;
+						{console.log("LIST::", list)}
+						{console.log("LIST.map::", list.map)}
+						{list.map((el) => {
+							const { id, title, isCompleted } = el;
 							console.warn("el:: ", el);
-							return (
-								<ToDo key={key} taskInfo={{ id: key, title, isCompleted }} />
-							);
+							return <ToDo key={id} taskInfo={{ id, title, isCompleted }} />;
 						})}
 					</ul>
 				</section>

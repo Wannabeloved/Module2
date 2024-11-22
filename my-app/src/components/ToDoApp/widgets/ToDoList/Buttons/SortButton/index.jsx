@@ -6,9 +6,7 @@ export const SortButton = ({
 	return (
 		<button
 			className={styles.button}
-			onClick={() => {
-				setIsNeedToSortAlphabet((isNeed) => !isNeed);
-			}}
+			onClick={() => setIsNeedToSortAlphabet(!isNeedToSortAlphabet)}
 		>
 			{isNeedToSortAlphabet ? "Sort by createdAt" : "Sort by alphabet"}
 		</button>

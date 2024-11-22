@@ -19,9 +19,11 @@ export const router = createBrowserRouter(
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+console.log("STORE!!::", store);
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>
+			{console.log("STORE!!::", store)}
 			<RouterProvider router={router} />
 		</Provider>
 	</React.StrictMode>,

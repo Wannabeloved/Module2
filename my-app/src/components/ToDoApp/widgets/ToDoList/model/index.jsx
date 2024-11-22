@@ -1,12 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGetListFromDB } from "../../../hooks/useGetListFromDB";
 
-import { useConnectWithDB } from "../../../features/connectWithDB";
-import { useCreateToDo } from "../../../features/createToDo";
-import { useEditToDo } from "../../../features/editToDo";
-import { useRemoveToDo } from "../../../features/removeToDo";
+import { useSelector, useDispatch } from "react-redux";
 
-import { useContext } from "react";
-import { ToDoListContext } from "../../../contexts/ToDoListContext";
+import { listSelector } from "../../../selectors/listSelector";
+import { somethingIsEditingSelector } from "../../../selectors/somethingIsEditingSelector";
+
+import { setNewList as setNewListAction } from "../../../../../store/actions/ToDoApp/setNewList";
+
+import { addToDo as addToDoAction } from "../../../../../store/actions/ToDoApp/addToDo";
+import { deleteToDo as deleteToDoAction } from "../../../../../store/actions/ToDoApp/deleteToDo";
+import { editToDo as editToDoAction } from "../../../../../store/actions/ToDoApp/editToDo";
+
+import { useGetFromListByTitle } from "../../../hooks/useGetFromListByTitle";
+
+import { listRequest } from "../api/listRequest";
 
 export const ToDoListModel = ({
 	ToDoListLayout,
@@ -15,71 +23,67 @@ export const ToDoListModel = ({
 	ToDo,
 	children,
 }) => {
-	const { list, setList } = useContext(ToDoListContext);
-	console.warn("list is rendered:: ", list);
-	const [somethingIsEditing, setSomethingIsEditing] = useState(false);
+	const list = useSelector(listSelector);
+	const somethingIsEditing = useSelector(somethingIsEditingSelector);
 
-	const {
-		isNeedToSortAlphabet,
-		setIsNeedToSortAlphabet,
-		setSubstringToSearch,
-	} = useConnectWithDB(setList);
+	const getFromListByTitle = useGetFromListByTitle();
 
-	const { addNewToDo, sendToDB, cancelCreate, changeNewToDoRef } =
-		useCreateToDo(setList, setSomethingIsEditing);
-	const { editToDo } = useEditToDo();
-	const { removeToDo } = useRemoveToDo(setList, deleteToDoFromList);
+	const dispatch = useDispatch();
 
-	function addToDoToList(toDo) {
-		setList((prev) => {
-			return [[...toDo], ...prev];
-		});
-	}
-	function deleteToDoFromList(id) {
-		setList((prev) => {
-			let newVal = prev.toSpliced(
-				prev.findIndex((el) => el[0] === id),
-				1,
-			);
-			return [...newVal];
-		});
-	}
+	const getList = useGetListFromDB();
+	const setList = (list, isNeedToSortAlphabet) => {
+		let sortedList = isNeedToSortAlphabet
+			? list.sort((a, b) => a.title.localeCompare(b.title))
+			: list;
+		dispatch(setNewListAction(sortedList));
+	};
+
+	const setFilteredSortedList =
+		(substringToSearch, isNeedToSortAlphabet) => (list) => {
+			const filteredList = getFromListByTitle(list, substringToSearch);
+			return setList(filteredList, isNeedToSortAlphabet);
+		};
+
+	const [isNeedToSortAlphabet, setIsNeedToSortAlphabet] = useState(false);
+	const [substringToSearch, setSubstringToSearch] = useState("");
+
+	useEffect(() => {
+		const abort = listRequest(
+			getList,
+			setFilteredSortedList(substringToSearch, isNeedToSortAlphabet),
+		);
+
+		return () => {
+			abort();
+		};
+	}, [isNeedToSortAlphabet, substringToSearch]);
+
+	const addToDo = (toDo) => dispatch(addToDoAction(toDo));
+	const editToDo = (id) => dispatch(editToDoAction(id));
+	const deleteToDo = (id) => dispatch(deleteToDoAction(id));
 
 	const search = () => {
-		return <Search setSubstringToSearch={setSubstringToSearch} />;
+		const onSearch = (substringToSearch) => {};
+		return (
+			<Search setSubstringToSearch={setSubstringToSearch} onSearch={onSearch} />
+		);
 	};
 
-	const sortButton = () => {
-		return (
-			<SortButton
-				isNeedToSortAlphabet={isNeedToSortAlphabet}
-				setIsNeedToSortAlphabet={setIsNeedToSortAlphabet}
-			/>
-		);
-	};
-	const createButton = () => {
-		return (
-			<CreateButton
-				addNewToDo={addNewToDo}
-				somethingIsEditing={somethingIsEditing}
-			/>
-		);
-	};
+	const sortButton = () => (
+		<SortButton
+			isNeedToSortAlphabet={isNeedToSortAlphabet}
+			setIsNeedToSortAlphabet={setIsNeedToSortAlphabet}
+		/>
+	);
 
 	return (
 		<ToDoListLayout
 			Search={search}
 			list={list}
-			setSubstringToSearch={setSubstringToSearch}
-			forList={{ addToDoToList, deleteToDoFromList }}
-			forCreate={{ sendToDB, cancelCreate, changeNewToDoRef }}
-			forRemove={{ removeToDo }}
-			forEdit={{ editToDo }}
 			somethingIsEditing={somethingIsEditing}
-			setSomethingIsEditing={setSomethingIsEditing}
 			buttons={{
 				SortButton: sortButton,
-				CreateButton: createButton,
+				CreateButton: CreateButton,
 			}}
 			ToDo={ToDo}
 		>

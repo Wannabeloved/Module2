@@ -1,11 +1,10 @@
 import styles from "./index.module.css";
 
-export const SearchButton = ({ setSubstringToSearch, inputState }) => {
-	const handleSearch = () => {
-		setSubstringToSearch(inputState);
-	};
+export const SearchButton = ({ setSubstringToSearch, getInputValue }) => {
+	const onSearch = () => setSubstringToSearch(getInputValue());
+
 	return (
-		<button className={styles.button} onClick={handleSearch}>
+		<button className={styles.button} onClick={onSearch}>
 			Search
 		</button>
 	);
