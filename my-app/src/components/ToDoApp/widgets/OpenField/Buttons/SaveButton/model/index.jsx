@@ -13,13 +13,15 @@ export const SaveButtonModel = ({
 	const dispatch = useDispatch();
 	const editInDB = useEditInDB();
 
-	const { currentToDo } = useSelector(currentToDoSelector);
-	const { id } = currentToDo;
+	const currentToDo = useSelector(currentToDoSelector);
 
 	const handleSave = () => {
+		const { id } = currentToDo || {};
+		if (!id) {
+			return;
+		}
 		let newTitle = getTitle();
-		console.log("newTitle", newTitle);
-		dispatch(editToDoAction({ title: newTitle }));
+		dispatch(editToDoAction(id, { title: newTitle }));
 		editInDB(id, { ...currentToDo, title: newTitle });
 		setIsEditing(false);
 	};

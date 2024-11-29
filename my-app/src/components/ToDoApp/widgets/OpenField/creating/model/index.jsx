@@ -16,15 +16,14 @@ export const OpenFieldCreatingModel = ({
 	setIsEditing,
 	handleClose,
 	getTitle,
+	id,
 }) => {
 	const dispatch = useDispatch();
-	const currentToDo = useSelector(currentToDoSelector);
+	const currentTask = useSelector(currentToDoSelector);
 
 	useEffect(() => {
-		if (currentToDo.id) return;
-
 		dispatch(CREATE_TODO);
-
+		setIsEditing(true);
 		return () => dispatch(CLEAR_CURRENT_TODO);
 	}, []);
 
@@ -50,6 +49,7 @@ export const OpenFieldCreatingModel = ({
 			Buttons={Buttons}
 			handleClose={handleCancelCreate}
 			isEditing={isEditing}
+			currentTask={currentTask}
 		/>
 	);
 };

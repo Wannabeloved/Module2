@@ -7,7 +7,6 @@ export { checkWin, checkOverflow, createMesh, setSymbolInMesh };
 export const helpers = {
 	move(state, { indexOfRow, indexInRow }) {
 		if (!state.canMove) return state;
-		console.warn("IN MOVE:: ", { indexOfRow, indexInRow });
 
 		const movesCount = state.movesCount + 1;
 		const mesh = setSymbolInMesh(
@@ -34,12 +33,6 @@ export const helpers = {
 			if (i === state.symbols.length) i = 0;
 			whoMoves = state.symbols[i];
 		}
-
-		console.log({
-			isWin,
-			isOverflow,
-			canMove,
-		});
 
 		return {
 			...state,

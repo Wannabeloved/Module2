@@ -13,20 +13,18 @@ const debounced = debounce((editInDB, id, editedFields) => {
 }, 1200);
 
 export const CompletedModel = ({ CompletedLayout }) => {
-	const { currentToDo } = useSelector(currentToDoSelector);
-	const { id, isCompleted } = currentToDo;
+	const currentToDo = useSelector(currentToDoSelector);
+
+	const { id, completed } = currentToDo || {};
 
 	const editInDB = useEditInDB();
 	const dispatch = useDispatch();
 
 	const handleCompleted = () => {
-		dispatch(editToDo({ isCompleted: !isCompleted }));
-		debounced(editInDB, id, { ...currentToDo, isCompleted: !isCompleted });
+		dispatch(editToDo(id, { completed: !completed }));
+		debounced(editInDB, id, { ...currentToDo, completed: !completed });
 	};
 	return (
-		<CompletedLayout
-			handleCompleted={handleCompleted}
-			isCompleted={isCompleted}
-		/>
+		<CompletedLayout handleCompleted={handleCompleted} completed={completed} />
 	);
 };

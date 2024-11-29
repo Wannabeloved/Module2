@@ -117,13 +117,6 @@ const checkers = [
 export const checkWin = createCheckWin(checkers);
 function createCheckWin(allCheckers) {
 	return (cellsForWin, mesh, indexOfRow, indexInRow, whoMoves) => {
-		console.log("IN CHECKWIN:: ", {
-			cellsForWin,
-			mesh,
-			indexOfRow,
-			indexInRow,
-			whoMoves,
-		});
 		const args = [mesh, indexOfRow, indexInRow, whoMoves, cellsForWin];
 		let result = allCheckers.some((el) => el(...args));
 		return result;

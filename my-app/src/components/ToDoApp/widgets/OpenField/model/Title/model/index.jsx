@@ -1,10 +1,8 @@
-import { useContext } from "react";
-import { CurrentToDoContext } from "../../../../../contexts/CurrentToDoContext";
+import { useSelector } from "react-redux";
+import { currentToDoSelector } from "../../../../../selectors/currentToDoSelector";
 
 export const TitleModel = ({ isEditing, titleRef, TitleLayout }) => {
-	const {
-		currentTask: { title },
-	} = useContext(CurrentToDoContext);
+	const { title } = useSelector(currentToDoSelector);
 	return (
 		<TitleLayout title={title} titleRef={titleRef} isEditing={isEditing} />
 	);

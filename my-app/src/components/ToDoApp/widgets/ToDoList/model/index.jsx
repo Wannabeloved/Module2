@@ -8,10 +8,6 @@ import { somethingIsEditingSelector } from "../../../selectors/somethingIsEditin
 
 import { setNewList as setNewListAction } from "../../../../../store/actions/ToDoApp/setNewList";
 
-import { addToDo as addToDoAction } from "../../../../../store/actions/ToDoApp/addToDo";
-import { deleteToDo as deleteToDoAction } from "../../../../../store/actions/ToDoApp/deleteToDo";
-import { editToDo as editToDoAction } from "../../../../../store/actions/ToDoApp/editToDo";
-
 import { useGetFromListByTitle } from "../../../hooks/useGetFromListByTitle";
 
 import { listRequest } from "../api/listRequest";
@@ -31,42 +27,43 @@ export const ToDoListModel = ({
 	const dispatch = useDispatch();
 
 	const getList = useGetListFromDB();
-	const setList = (list, isNeedToSortAlphabet) => {
+
+	const getSortedList = (list, isNeedToSortAlphabet) => {
 		let sortedList = isNeedToSortAlphabet
-			? list.sort((a, b) => a.title.localeCompare(b.title))
-			: list;
-		dispatch(setNewListAction(sortedList));
+			? list.sort(([, a], [, b]) => a.title.localeCompare(b.title))
+			: list.sort(([, a], [, b]) => a.createdAt - b.createdAt);
+		return sortedList;
 	};
 
-	const setFilteredSortedList =
-		(substringToSearch, isNeedToSortAlphabet) => (list) => {
-			const filteredList = getFromListByTitle(list, substringToSearch);
-			return setList(filteredList, isNeedToSortAlphabet);
-		};
+	const getFilteredlist = (
+		(getFromListByTitle) => (list, substringToSearch) =>
+			getFromListByTitle(list, substringToSearch)
+	)(getFromListByTitle);
+
+	const getFilteredSortedList = (
+		(getFilteredlist, getSortedList) =>
+		(substringToSearch, isNeedToSortAlphabet) =>
+		(list) => {
+			const filteredList = getFilteredlist(list, substringToSearch);
+			return getSortedList(filteredList, isNeedToSortAlphabet);
+		}
+	)(getFilteredlist, getSortedList);
 
 	const [isNeedToSortAlphabet, setIsNeedToSortAlphabet] = useState(false);
 	const [substringToSearch, setSubstringToSearch] = useState("");
 
 	useEffect(() => {
-		const abort = listRequest(
-			getList,
-			setFilteredSortedList(substringToSearch, isNeedToSortAlphabet),
+		const abort = listRequest(getList, (list) =>
+			dispatch(setNewListAction(list)),
 		);
 
 		return () => {
 			abort();
 		};
-	}, [isNeedToSortAlphabet, substringToSearch]);
-
-	const addToDo = (toDo) => dispatch(addToDoAction(toDo));
-	const editToDo = (id) => dispatch(editToDoAction(id));
-	const deleteToDo = (id) => dispatch(deleteToDoAction(id));
+	}, []);
 
 	const search = () => {
-		const onSearch = (substringToSearch) => {};
-		return (
-			<Search setSubstringToSearch={setSubstringToSearch} onSearch={onSearch} />
-		);
+		return <Search setSubstringToSearch={setSubstringToSearch} />;
 	};
 
 	const sortButton = () => (
@@ -85,6 +82,9 @@ export const ToDoListModel = ({
 				SortButton: sortButton,
 				CreateButton: CreateButton,
 			}}
+			getFilteredSortedList={getFilteredSortedList}
+			isNeedToSortAlphabet={isNeedToSortAlphabet}
+			substringToSearch={substringToSearch}
 			ToDo={ToDo}
 		>
 			{children}
