@@ -5,67 +5,43 @@ import { Completed } from "../../Buttons/Completed";
 
 import { useState } from "react";
 
-import { useContext, useEffect } from "react";
-import { CurrentToDoContext } from "../../../../contexts/CurrentToDoContext";
-import { useGetFromListById } from "../../../../hooks/useGetFromListById";
-import { ToDoListContext } from "../../../../contexts/ToDoListContext";
+import { useEffect } from "react";
+import { getToDoByIdSelector } from "../../../../selectors/toDoByIdSelector";
+
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentToDo } from "../../../../../../store/actions/ToDoApp/setCurrentToDo";
+import { currentToDoSelector } from "../../../../selectors/currentToDoSelector";
 
 export const OpenFieldExistingModel = ({
 	handleClose,
 	OpenFieldLayout,
-	id,
 	Title,
 	getTitle,
 	isEditing,
 	setIsEditing,
+	id,
 }) => {
-	const { currentTask, patchCurrentTask, setCurrentTask } =
-		useContext(CurrentToDoContext);
-	const { list } = useContext(ToDoListContext);
-	const getByID = useGetFromListById();
+	const dispatch = useDispatch();
+	const setCurrentTask = (task) => {
+		dispatch(setCurrentToDo(task));
+	};
+
+	const todoWithCurrentId = useSelector(getToDoByIdSelector(id));
+
+	const currentTask = useSelector(currentToDoSelector);
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [isTimeout, setIsTimeout] = useState(false);
 
 	useEffect(() => {
-		if (!id) return;
-		const controller = new AbortController();
-		const getTask = new Promise(
-			(resolve, reject) => {
-				const task = getByID(list, id);
-				console.log("task?.[0]", task?.[0]);
-				if (task?.[0]) {
-					resolve(task);
-				} else {
-					reject({ message: "Task not found" });
-				}
-			},
-			{ signal: controller.signal },
-		);
-		getTask
-			.then((task) => {
-				setCurrentTask(task[1]);
-				setError(null);
-			})
-			.catch((error) => {
-				console.log(error);
-				setError(error);
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
-		const timeout = setTimeout(() => {
-			setIsTimeout(true);
-		}, 5000);
-
-		return () => {};
-	}, [list]);
+		setCurrentTask(todoWithCurrentId);
+	}, [todoWithCurrentId]);
 
 	const Buttons = () => {
 		return (
 			<>
-				<Completed patchCurrentTask={patchCurrentTask} id={id} />
+				<Completed />
 				{isEditing ? (
 					<SaveButton getTitle={getTitle} setIsEditing={setIsEditing} id={id} />
 				) : (

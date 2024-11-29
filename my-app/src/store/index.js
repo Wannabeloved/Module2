@@ -8,4 +8,3 @@ export const store = createStore(
 	reducer,
 	composeEnhancers(applyMiddleware(thunk)),
 );
-export const getState = store.getState;

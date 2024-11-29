@@ -1,29 +1,30 @@
-import { useContext } from "react";
-import { CurrentToDoContext } from "../../../../../contexts/CurrentToDoContext";
+import { currentToDoSelector } from "../../../../../selectors/currentToDoSelector";
+import { useSelector } from "react-redux";
+
+import { useEditInDB } from "../../../../../hooks/useEditInDB";
+
+import { useDispatch } from "react-redux";
+import { editToDo } from "../../../../../../../store/actions/ToDoApp/editToDo";
 
 import debounce from "debounce";
 
-import { useEditToDo } from "../../../../../features/editToDo";
-
-const debounced = debounce((editToDo, id, isCompleted) => {
-	editToDo(id, { isCompleted });
+const debounced = debounce((editInDB, id, editedFields) => {
+	editInDB(id, editedFields);
 }, 1200);
 
-export const CompletedModel = ({ id, patchCurrentTask, CompletedLayout }) => {
-	const {
-		currentTask: { isCompleted },
-	} = useContext(CurrentToDoContext);
+export const CompletedModel = ({ CompletedLayout }) => {
+	const currentToDo = useSelector(currentToDoSelector);
 
-	const editToDo = useEditToDo();
+	const { id, completed } = currentToDo || {};
+
+	const editInDB = useEditInDB();
+	const dispatch = useDispatch();
 
 	const handleCompleted = () => {
-		patchCurrentTask({ isCompleted: !isCompleted });
-		debounced(editToDo, id, !isCompleted);
+		dispatch(editToDo(id, { completed: !completed }));
+		debounced(editInDB, id, { ...currentToDo, completed: !completed });
 	};
 	return (
-		<CompletedLayout
-			handleCompleted={handleCompleted}
-			isCompleted={isCompleted}
-		/>
+		<CompletedLayout handleCompleted={handleCompleted} completed={completed} />
 	);
 };

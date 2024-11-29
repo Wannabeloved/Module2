@@ -20,7 +20,6 @@ export const SettingsField = () => {
 	const dispatch = useDispatch();
 
 	const setCustomColumns = (num) => {
-		console.log("winLineCount > num", winLineCount, num);
 		if (winLineCount > num) dispatch(setWinLineCountAction(num));
 		dispatch(setColumns(num));
 	};

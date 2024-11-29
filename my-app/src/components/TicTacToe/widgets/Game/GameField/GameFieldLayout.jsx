@@ -25,7 +25,6 @@ export const GameFieldLayout = ({ columns, PlayerSVG, onMove, mesh }) => {
 							>
 								{row.map((el, ic) => {
 									const key = ir * columns + ic;
-									console.log("el:: ", el);
 									return (
 										<td
 											className={`${styles.item} ${ic !== 0 ? `${styles.borderLeft}` : ""}`}

@@ -19,7 +19,6 @@ export const tictactoeReducer = createReducer(INITIAL_STATE, helpers, utils);
 
 function createReducer(initialState, helpers, utils) {
 	return (state = initialState, { type, payload }) => {
-		console.log("switch is work");
 		// legacy... )
 
 		// все действия "настройки" начинаются с "SET"
@@ -36,7 +35,6 @@ function createReducer(initialState, helpers, utils) {
 				return { ...state, winLineCount };
 
 			case "SET_COLUMNS_AND_WIN_LINE_COUNT":
-				console.log(`SET_COLUMNS_AND_WIN_LINE_COUNT: ${payload}`);
 				// не рендерится нормально если делать разными операциями подряд
 				const num = utils.convertToNumber(payload);
 				return { ...state, winLineCount: num, columns: num };
@@ -68,7 +66,6 @@ function createReducer(initialState, helpers, utils) {
 				};
 
 			default:
-				console.warn(`No handler for ${type} type of action`);
 				return state;
 		}
 	};

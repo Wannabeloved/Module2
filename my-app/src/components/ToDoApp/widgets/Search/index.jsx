@@ -3,17 +3,17 @@ import { SearchInput } from "./SearchInput";
 
 import styles from "./index.module.css";
 
-import { useState } from "react";
+import { useRef } from "react";
 export const Search = ({ setSubstringToSearch }) => {
-	const [inputState, setInputState] = useState("");
+	const inputRef = useRef(null);
+	const getInputValue = () => {
+		return inputRef.current.value;
+	};
 	return (
 		<section className={styles.container}>
-			<SearchInput
-				inputState={inputState}
-				setInputState={setInputState}
-			></SearchInput>
+			<SearchInput inputRef={inputRef}></SearchInput>
 			<SearchButton
-				inputState={inputState}
+				getInputValue={getInputValue}
 				setSubstringToSearch={setSubstringToSearch}
 			></SearchButton>
 		</section>

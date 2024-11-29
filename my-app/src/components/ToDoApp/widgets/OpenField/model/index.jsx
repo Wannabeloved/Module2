@@ -1,7 +1,8 @@
-import { useState, useContext, useRef } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { CurrentToDoContext } from "../../../contexts/CurrentToDoContext";
+import { useDispatch } from "react-redux";
+import { setCurrentToDo } from "../../../../../store/actions/ToDoApp/setCurrentToDo";
 
 import { OpenFieldCreatingModel } from "../creating/model";
 import { OpenFieldExistingModel } from "../existing/model";
@@ -14,7 +15,10 @@ export const OpenFieldModel = ({ OpenFieldLayout }) => {
 	const { id } = useParams();
 	const isCreate = id === "create";
 
-	const { setCurrentTask } = useContext(CurrentToDoContext);
+	const dispatch = useDispatch();
+	const setCurrentTask = (todo) => {
+		dispatch(setCurrentToDo(todo));
+	};
 
 	const [isEditing, setIsEditing] = useState(false);
 

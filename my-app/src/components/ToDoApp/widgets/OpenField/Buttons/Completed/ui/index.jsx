@@ -1,4 +1,4 @@
 import { Checkbox } from "../../../../../shared/ui/Checkbox";
-export const CompletedLayout = ({ isCompleted, handleCompleted }) => {
-	return <Checkbox checked={isCompleted} onChange={handleCompleted} />;
+export const CompletedLayout = ({ completed, handleCompleted }) => {
+	return <Checkbox checked={completed} onChange={handleCompleted} />;
 };

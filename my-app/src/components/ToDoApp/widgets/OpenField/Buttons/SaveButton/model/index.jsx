@@ -1,18 +1,28 @@
-import { useContext } from "react";
-import { CurrentToDoContext } from "../../../../../contexts/CurrentToDoContext";
+import { useEditInDB } from "../../../../../hooks/useEditInDB";
+import { currentToDoSelector } from "../../../../../selectors/currentToDoSelector";
+import { useSelector } from "react-redux";
+
+import { useDispatch } from "react-redux";
+import { editToDo as editToDoAction } from "../../../../../../../store/actions/ToDoApp/editToDo";
+
 export const SaveButtonModel = ({
-	id,
 	getTitle,
-	editToDo,
 	setIsEditing,
 	SaveButtonLayout,
 }) => {
-	const { patchCurrentTask } = useContext(CurrentToDoContext);
+	const dispatch = useDispatch();
+	const editInDB = useEditInDB();
+
+	const currentToDo = useSelector(currentToDoSelector);
+
 	const handleSave = () => {
+		const { id } = currentToDo || {};
+		if (!id) {
+			return;
+		}
 		let newTitle = getTitle();
-		console.log("newTitle", newTitle);
-		patchCurrentTask({ title: newTitle });
-		editToDo(id, { title: newTitle });
+		dispatch(editToDoAction(id, { title: newTitle }));
+		editInDB(id, { ...currentToDo, title: newTitle });
 		setIsEditing(false);
 	};
 

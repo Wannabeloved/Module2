@@ -1,7 +1,11 @@
-import { useCreateToDo } from "../../../../features/createToDo";
-
 import { ConfirmCreateButton } from "../../Buttons/ConfirmCreateButton";
 import { CancelCreateButton } from "../../Buttons/CancelCreateButton";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { CREATE_TODO } from "./../../../../../../store/actions/ToDoApp/CREATE_TODO";
+import { CLEAR_CURRENT_TODO } from "../../../../../../store/actions/ToDoApp/CLEAR_CURRENT_TODO";
+import { currentToDoSelector } from "../../../../selectors/currentToDoSelector";
 
 import { useEffect } from "react";
 
@@ -10,25 +14,30 @@ export const OpenFieldCreatingModel = ({
 	Title,
 	isEditing,
 	setIsEditing,
-	setCurrentTask,
 	handleClose,
 	getTitle,
+	id,
 }) => {
-	const { sendToDB, addNewToDo, finishCreating } = useCreateToDo();
+	const dispatch = useDispatch();
+	const currentTask = useSelector(currentToDoSelector);
+
 	useEffect(() => {
-		addNewToDo();
+		dispatch(CREATE_TODO);
 		setIsEditing(true);
+		return () => dispatch(CLEAR_CURRENT_TODO);
 	}, []);
 
 	const handleCancelCreate = () => {
-		finishCreating();
+		dispatch(CLEAR_CURRENT_TODO);
 		handleClose();
 	};
 
 	const Buttons = () => {
 		return (
 			<>
-				<ConfirmCreateButton {...{ getTitle, sendToDB, handleClose }} />
+				<ConfirmCreateButton
+					{...{ getTitle, handleClose: handleCancelCreate }}
+				/>
 				<CancelCreateButton {...{ handleCancelCreate }} />
 			</>
 		);
@@ -40,6 +49,7 @@ export const OpenFieldCreatingModel = ({
 			Buttons={Buttons}
 			handleClose={handleCancelCreate}
 			isEditing={isEditing}
+			currentTask={currentTask}
 		/>
 	);
 };

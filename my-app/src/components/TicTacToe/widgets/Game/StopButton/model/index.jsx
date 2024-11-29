@@ -23,7 +23,6 @@ export const StopButtonModel = ({ Layout }) => {
 	const movesCount = useSelector(movesCountSelector);
 	useBlocker(() => {
 		if (isWin || isOverflow || movesCount === 0 || confirm()) {
-			console.log("BLOCKER");
 			dispatch(STOP_THE_GAME);
 			return false;
 		}

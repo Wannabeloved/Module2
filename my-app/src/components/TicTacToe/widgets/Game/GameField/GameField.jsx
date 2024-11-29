@@ -15,8 +15,6 @@ export const GameField = () => {
 
 	const dispatch = useDispatch();
 
-	console.log("mesh, columns:: ", mesh, columns);
-
 	const PlayerSVG = ({ indexOfRow, indexInRow }) => {
 		return <PlayerSymbol currentSymbol={mesh[indexOfRow][indexInRow]} />;
 	};

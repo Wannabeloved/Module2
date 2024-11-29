@@ -3,6 +3,9 @@ export const ToDoListLayout = ({
 	Search,
 	list,
 	buttons: { SortButton, CreateButton },
+	getFilteredSortedList,
+	isNeedToSortAlphabet,
+	substringToSearch,
 	ToDo,
 	children,
 }) => {
@@ -18,12 +21,11 @@ export const ToDoListLayout = ({
 				</div>
 				<section className={styles.listField}>
 					<ul className={styles.todoList}>
-						{list?.map(([key, el]) => {
-							const { title, isCompleted } = el;
-							console.warn("el:: ", el);
-							return (
-								<ToDo key={key} taskInfo={{ id: key, title, isCompleted }} />
-							);
+						{getFilteredSortedList(
+							substringToSearch,
+							isNeedToSortAlphabet,
+						)(list).map(([id, { title, completed }]) => {
+							return <ToDo key={id} taskInfo={{ id, title, completed }} />;
 						})}
 					</ul>
 				</section>

@@ -1,7 +1,6 @@
 import * as yup from "yup";
 
 const getInput = (instance) => {
-	console.log("instance.advice:: ", instance.advice);
 	return {
 		name: instance.name,
 		type: instance.type,
@@ -45,7 +44,6 @@ const fields = [
 		schema: yup
 			.string()
 			.typeError((val) => {
-				console.log(val.originalValue.length);
 				return val.originalValue.length > 0
 					? "Возраст должен быть числом"
 					: "Это поле обязательно к заполнению";

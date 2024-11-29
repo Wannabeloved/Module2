@@ -10,7 +10,6 @@ export const SettingsFieldLayout = ({
 		setColumnsButtons.push(i);
 	}
 	let setLineButtons = [];
-	console.log("setLineButtons::", setLineButtons);
 	for (let i = columnsRange[0]; i <= columns; i++) {
 		setLineButtons.push(i);
 	}
