@@ -2,7 +2,7 @@ import { Component } from "react";
 
 import { SettingsInformationLayout } from "./SettingsInformationLayout";
 
-import { useSelector, connect } from "react-redux";
+import { connect } from "react-redux";
 
 import { columnsSelector } from "../../../redux-selectors/columnsSelector";
 import { winLineCountSelector } from "../../../redux-selectors/winLineCountSelector";
