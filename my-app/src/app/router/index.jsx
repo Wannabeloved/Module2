@@ -13,8 +13,11 @@ import { Settings } from "../../components/TicTacToe/widgets/Settings";
 import { Page404 } from "../../pages/Page404";
 
 import { Navigate } from "react-router-dom";
+import withRouter from "./withRouter";
 
 export { NavLink, Outlet, useParams } from "react-router-dom";
+
+const TicTacToeWithRoutes = withRouter(TicTacToe);
 
 export const routesList = [
 	{ path: "/", name: "Home", element: <List /> },
@@ -35,7 +38,7 @@ export const routesList = [
 	{
 		path: "/tictactoe",
 		name: "TicTacToe",
-		element: <TicTacToe />,
+		element: <TicTacToeWithRoutes />,
 		children: [
 			{
 				path: "game",
