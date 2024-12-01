@@ -14,7 +14,6 @@ export {
 export const helpers = {
 	move(state, { indexOfRow, indexInRow }) {
 		if (!state.canMove) return state;
-		console.log("MOVE!!");
 		if (checkSymbolInMesh(state.mesh, indexOfRow, indexInRow)) {
 			return {
 				...state,

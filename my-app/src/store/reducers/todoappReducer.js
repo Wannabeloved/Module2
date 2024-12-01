@@ -49,7 +49,6 @@ function createReducer(initialState, helpers, utils) {
 					currentToDo: {},
 				};
 			case "ADD_TODO_TO_LIST":
-				console.log(payload);
 				return {
 					...state,
 					toDoList: new MyMap([

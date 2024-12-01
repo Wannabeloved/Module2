@@ -12,7 +12,6 @@ class GameInformationContainer extends Component {
 	render() {
 		const { isWin, isOverflow, isError } = this.props;
 		const isFinal = isWin || isOverflow;
-		console.log("ISERROR IN GAME INFORMATION", isError);
 		return <>{isFinal ? <EndgameInformation /> : <IngameInformation />}</>;
 	}
 }
