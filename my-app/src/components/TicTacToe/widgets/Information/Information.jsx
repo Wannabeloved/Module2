@@ -1,19 +1,40 @@
+import { Component } from "react";
+
 import { InformationLayout } from "./InformationLayout";
 
 import { GameInformation } from "./GameInformation";
 import { SettingsInformation } from "./SettingsInformation/SettingsInformation";
 
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { isGameOnSelector } from "../../redux-selectors/isGameOnSelector";
 
-export const Information = () => {
-	const isGameOn = useSelector(isGameOnSelector);
+class InformationContainer extends Component {
+	render() {
+		const { isGameOn } = this.props;
+		return (
+			<InformationLayout
+				isGameOn={isGameOn}
+				GameInformation={GameInformation}
+				SettingsInformation={SettingsInformation}
+			/>
+		);
+	}
+}
+export const Information = connect(mapStateToProps)(InformationContainer);
+function mapStateToProps(state) {
+	return {
+		isGameOn: isGameOnSelector(state),
+	};
+}
 
-	return (
-		<InformationLayout
-			isGameOn={isGameOn}
-			GameInformation={GameInformation}
-			SettingsInformation={SettingsInformation}
-		/>
-	);
-};
+// export const Information = () => {
+// 	const isGameOn = useSelector(isGameOnSelector);
+
+// 	return (
+// 		<InformationLayout
+// 			isGameOn={isGameOn}
+// 			GameInformation={GameInformation}
+// 			SettingsInformation={SettingsInformation}
+// 		/>
+// 	);
+// };

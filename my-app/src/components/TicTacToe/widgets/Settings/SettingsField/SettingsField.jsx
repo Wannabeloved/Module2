@@ -1,68 +1,125 @@
-import { SettingsFieldLayout } from "./SettingsFieldLayout";
-import { Button } from "../../../entities/Buttons/Button";
-
-import { useSelector } from "react-redux";
+import { Component } from "react";
+import { connect } from "react-redux";
 
 import { columnsRangeSelector } from "../../../redux-selectors/columnsRangeSelector";
 import { columnsSelector } from "../../../redux-selectors/columnsSelector";
 import { winLineCountSelector } from "../../../redux-selectors/winLineCountSelector";
 
-import { useDispatch } from "react-redux";
-
 import { setWinLineCount as setWinLineCountAction } from "../../../../../store/actions/setWinLineCount";
-import { setColumns } from "../../../../../store/actions/setColumns";
+import { setColumns as setColumnsAction } from "../../../../../store/actions/setColumns";
 
-export const SettingsField = () => {
-	const columnsRange = useSelector(columnsRangeSelector);
-	const columns = useSelector(columnsSelector);
-	const winLineCount = useSelector(winLineCountSelector);
+import { SettingsFieldLayout } from "./SettingsFieldLayout";
+import { Button } from "../../../entities/Buttons/Button";
 
-	const dispatch = useDispatch();
-
-	const setCustomColumns = (num) => {
+class SettingsFieldContainer extends Component {
+	setCustomColumns(winLineCount, num, dispatch) {
 		if (winLineCount > num) dispatch(setWinLineCountAction(num));
-		dispatch(setColumns(num));
-	};
-	const setWinLineCount = (num) => {
+		dispatch(setColumnsAction(num));
+	}
+	setWinLineCount(num, dispatch) {
 		dispatch(setWinLineCountAction(num));
-	};
+	}
 
-	const SetColumnsButton = ({ children }) => {
+	render() {
+		const { columnsRange, columns, winLineCount, dispatch } = this.props;
+		const SetColumnsButton = ({ children }) => {
+			return (
+				<Button
+					onClick={() => {
+						this.setCustomColumns(winLineCount, children, dispatch);
+					}}
+				>
+					{children}
+				</Button>
+			);
+		};
+		const Select = ({ className, children }) => {
+			return (
+				<select
+					name=""
+					id=""
+					value={winLineCount}
+					className={className}
+					onChange={(e) => {
+						this.setWinLineCount(e.target.value, dispatch);
+					}}
+				>
+					{children}
+				</select>
+			);
+		};
 		return (
-			<Button
-				onClick={() => {
-					setCustomColumns(children);
-				}}
-			>
-				{children}
-			</Button>
+			<>
+				<SettingsFieldLayout
+					SetColumnsButton={SetColumnsButton}
+					Select={Select}
+					columnsRange={columnsRange}
+					columns={columns}
+				/>
+			</>
 		);
+	}
+}
+export const SettingsField = connect(mapStateToProps)(SettingsFieldContainer);
+function mapStateToProps(state) {
+	return {
+		columns: columnsSelector(state),
+		columnsRange: columnsRangeSelector(state),
+		winLineCount: winLineCountSelector(state),
 	};
+}
 
-	const Select = ({ className, children }) => {
-		return (
-			<select
-				name=""
-				id=""
-				value={winLineCount}
-				className={className}
-				onChange={(e) => {
-					setWinLineCount(e.target.value);
-				}}
-			>
-				{children}
-			</select>
-		);
-	};
+// export const SettingsField = () => {
+// 	const columnsRange = useSelector(columnsRangeSelector);
+// 	const columns = useSelector(columnsSelector);
+// 	const winLineCount = useSelector(winLineCountSelector);
 
-	return (
-		<>
-			<SettingsFieldLayout
-				SetColumnsButton={SetColumnsButton}
-				Select={Select}
-				columnsRange={columnsRange}
-				columns={columns}
-			/>
-		</>
-	);
-};
+// 	const dispatch = useDispatch();
+
+// 	const setCustomColumns = (num) => {
+// 		if (winLineCount > num) dispatch(setWinLineCountAction(num));
+// 		dispatch(setColumns(num));
+// 	};
+// 	const setWinLineCount = (num) => {
+// 		dispatch(setWinLineCountAction(num));
+// 	};
+
+// 	const SetColumnsButton = ({ children }) => {
+// 		return (
+// 			<Button
+// 				onClick={() => {
+// 					setCustomColumns(children);
+// 				}}
+// 			>
+// 				{children}
+// 			</Button>
+// 		);
+// 	};
+
+// 	const Select = ({ className, children }) => {
+// 		return (
+// 			<select
+// 				name=""
+// 				id=""
+// 				value={winLineCount}
+// 				className={className}
+// 				onChange={(e) => {
+// 					setWinLineCount(e.target.value);
+// 				}}
+// 			>
+// 				{children}
+// 			</select>
+// 		);
+// 	};
+
+// 	return (
+// 		<>
+// 			<SettingsFieldLayout
+// 				SetColumnsButton={SetColumnsButton}
+// 				Select={Select}
+// 				columnsRange={columnsRange}
+// 				columns={columns}
+// 			/>
+// 		</>
+// 	);
+// };

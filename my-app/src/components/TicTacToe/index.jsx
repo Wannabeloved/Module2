@@ -11,12 +11,16 @@ export class TicTacToe extends Component {
 		const { navigate } = this.props;
 		navigate("settings", { replace: true });
 	}
-	componentDidMount() {
+	navigateIfNeeded() {
 		const { pathname } = this.props.location;
 		const isMatch = pathname === "/tictactoe";
 		if (isMatch) this.navigateToSettings();
 	}
+	componentDidMount() {
+		this.navigateIfNeeded();
+	}
 	render() {
+		this.navigateIfNeeded();
 		return (
 			<section className={styles.main}>
 				<Information />
