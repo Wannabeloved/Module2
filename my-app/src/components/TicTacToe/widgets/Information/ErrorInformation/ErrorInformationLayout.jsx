@@ -6,7 +6,17 @@ export class ErrorInformationLayout extends Component {
 		return (
 			<>
 				<div
-					className={styles.main}
+					className={`
+						w-72
+						h-36
+						bg-orange-400
+						rounded-3xl
+						border-2
+						border-solid
+						border-red-500
+						opacity-100
+						${styles.animation}
+					`}
 					style={{
 						padding: "0px 25px",
 						textAlign: "center",

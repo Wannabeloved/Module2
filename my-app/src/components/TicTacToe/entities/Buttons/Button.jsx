@@ -3,8 +3,7 @@ import { ButtonLayout } from "./ButtonLayout";
 
 export class Button extends Component {
 	render() {
-		const { onClick, children } = this.props;
-		return <ButtonLayout onClick={onClick}>{children}</ButtonLayout>;
+		return <ButtonLayout {...this.props}>{this.props.children}</ButtonLayout>;
 	}
 }
 

@@ -1,5 +1,4 @@
 import { Component } from "react";
-import styles from "./SettingsField.module.css";
 
 export class SettingsFieldLayout extends Component {
 	getSetColumnsButtons(columnsRange) {
@@ -23,10 +22,38 @@ export class SettingsFieldLayout extends Component {
 		const setLineButtons = this.getSetLineButtons(columnsRange, columns);
 		return (
 			<>
-				<div className={styles.main}>
+				<div
+					className={`
+					w-96 
+					h-64 
+					rounded-3xl
+					bg-zinc-400 
+					text-center 
+					content-center
+					flex
+					flex-col
+					items-center
+					justify-evenly
+				`}
+				>
 					<div>
-						<h6 className={styles.title}>Количество колонок:</h6>
-						<div className={styles.buttons}>
+						<h6
+							className={`
+								m-0
+								mb-2
+								font-semibold
+							`}
+						>
+							Количество колонок:
+						</h6>
+						<div
+							className={`
+								flex 
+								flex-row 
+								justify-evenly
+								gap-2
+							`}
+						>
 							{setColumnsButtons.map((num) => {
 								return (
 									<SetColumnsButton key={`${num}`}>{num}</SetColumnsButton>
@@ -34,9 +61,33 @@ export class SettingsFieldLayout extends Component {
 							})}
 						</div>
 					</div>
-					<div className={styles.flexRow}>
-						<h6 className={styles.title}>Ходов в ряд для победы: </h6>
-						<Select className={styles.select}>
+					<div
+						className={`
+						flex
+						flex-row
+						gap-2
+					`}
+					>
+						<h6
+							className={`
+								m-0
+								mb-2
+								font-semibold
+							`}
+						>
+							Ходов в ряд для победы:{" "}
+						</h6>
+						<Select
+							className={`
+								p-1
+								w-fit
+								h-fit
+								bg-gray-950
+								hover:bg-zinc-800
+								rounded-md
+								text-cyan-200
+							`}
+						>
 							{setLineButtons.map((num) => (
 								<option key={`${num}`} value={num}>
 									{num}
