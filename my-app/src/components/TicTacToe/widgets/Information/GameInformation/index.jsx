@@ -3,13 +3,14 @@ import { connect } from "react-redux";
 
 import { isWinSelector } from "../../../redux-selectors/isWinSelector";
 import { isOverflowSelector } from "../../../redux-selectors/isOverflowSelector";
+import { isErrorSelector } from "../../../redux-selectors/isErrorSelector";
 
 import { EndgameInformation } from "./EndgameInformation/EndgameInformation";
 import { IngameInformation } from "./IngameInformation/IngameInformation";
 
 class GameInformationContainer extends Component {
 	render() {
-		const { isWin, isOverflow } = this.props;
+		const { isWin, isOverflow, isError } = this.props;
 		const isFinal = isWin || isOverflow;
 		return <>{isFinal ? <EndgameInformation /> : <IngameInformation />}</>;
 	}
@@ -21,6 +22,7 @@ function mapStateToProps(state) {
 	return {
 		isWin: isWinSelector(state),
 		isOverflow: isOverflowSelector(state),
+		isError: isErrorSelector(state),
 	};
 }
 

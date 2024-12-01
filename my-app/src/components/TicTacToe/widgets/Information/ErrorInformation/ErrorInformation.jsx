@@ -3,7 +3,7 @@ import { ErrorInformationLayout } from "./ErrorInformationLayout";
 
 export class ErrorInformation extends Component {
 	render() {
-		return <ErrorInformationLayout />;
+		return <ErrorInformationLayout {...this.props} />;
 	}
 }
 

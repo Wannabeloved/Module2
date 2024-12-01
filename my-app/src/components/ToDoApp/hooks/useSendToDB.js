@@ -6,7 +6,6 @@ export const useSendToDB = () => {
 		newToDo.completed = false;
 
 		const res = await post("todolist", newToDo);
-		console.log(res);
 		return res;
 	};
 };

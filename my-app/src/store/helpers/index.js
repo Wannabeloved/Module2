@@ -2,11 +2,24 @@ import { checkWin } from "./winChecker";
 import { checkOverflow } from "./overflowChecker";
 import { createMesh } from "./createMesh";
 import { setSymbolInMesh } from "./setSymbolInMesh";
-export { checkWin, checkOverflow, createMesh, setSymbolInMesh };
+import { checkSymbolInMesh } from "./checkSymbolInMesh";
+export {
+	checkWin,
+	checkOverflow,
+	createMesh,
+	setSymbolInMesh,
+	checkSymbolInMesh,
+};
 
 export const helpers = {
 	move(state, { indexOfRow, indexInRow }) {
 		if (!state.canMove) return state;
+		if (checkSymbolInMesh(state.mesh, indexOfRow, indexInRow)) {
+			return {
+				...state,
+				isError: true,
+			};
+		}
 
 		const movesCount = state.movesCount + 1;
 		const mesh = setSymbolInMesh(
@@ -42,6 +55,7 @@ export const helpers = {
 			isOverflow,
 			canMove,
 			mesh,
+			isError: false,
 		};
 	},
 

@@ -33,7 +33,9 @@ export class SettingsInformationLayout extends Component {
 				</div>
 				<div>
 					<h6 className={`${this.styles.title}`}>Максимум ходов</h6>
-					<p className={`${this.styles.value} text-cyan-500`}>{winLineCount}</p>
+					<p className={`${this.styles.value} !text-cyan-500`}>
+						{winLineCount}
+					</p>
 				</div>
 			</div>
 		);
