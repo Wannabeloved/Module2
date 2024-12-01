@@ -16,6 +16,7 @@ export class ErrorInformationLayout extends Component {
 						border-red-500
 						opacity-100
 						${styles.animation}
+						${this.props.className}
 					`}
 					style={{
 						padding: "0px 25px",

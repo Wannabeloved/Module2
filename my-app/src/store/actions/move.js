@@ -1,5 +1,4 @@
-import { checkWin } from "../helpers";
-import { checkOverflow } from "../helpers";
+import { checkWin, checkOverflow, checkSymbolInMesh } from "../helpers";
 import { setSymbolInMesh } from "../helpers/setSymbolInMesh";
 
 export const move =
@@ -7,6 +6,17 @@ export const move =
 	(dispatch, getState) => {
 		const { tictactoeState: state } = getState();
 		if (!state.canMove) return state;
+		if (checkSymbolInMesh(state.mesh, indexOfRow, indexInRow)) {
+			dispatch({
+				type: "MOVE",
+				payload: {
+					...state,
+					isError: true,
+				},
+			});
+			return false;
+		}
+
 		const movesCount = state.movesCount + 1;
 		const mesh = setSymbolInMesh(
 			state.mesh,
@@ -42,6 +52,7 @@ export const move =
 				isOverflow,
 				canMove,
 				mesh,
+				isError: false,
 			},
 		});
 		return true;

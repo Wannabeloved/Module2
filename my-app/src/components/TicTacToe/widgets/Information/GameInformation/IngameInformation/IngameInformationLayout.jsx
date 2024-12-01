@@ -4,14 +4,14 @@ export class IngameInformationLayout extends Component {
 	render() {
 		const { movesCount, isError, ErrorInformation } = this.props;
 		return (
-			<>
-				<div>
+			<div className="relative flex h-36 text-center justify-center">
+				<div className="self-center">
 					Ходов:
 					<br />
 					{movesCount}
 				</div>
-				{isError && <ErrorInformation />}
-			</>
+				{isError && <ErrorInformation className="absolute" />}
+			</div>
 		);
 	}
 }

@@ -3,7 +3,6 @@ import { Component } from "react";
 export class ButtonLayout extends Component {
 	render() {
 		const { onClick, children } = this.props;
-		console.log(this.props);
 		return (
 			<button
 				onClick={() => {
