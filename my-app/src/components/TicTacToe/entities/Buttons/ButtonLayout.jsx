@@ -1,15 +1,27 @@
 import { Component } from "react";
-import styles from "./Button.module.css";
 
 export class ButtonLayout extends Component {
 	render() {
 		const { onClick, children } = this.props;
+		console.log(this.props);
 		return (
 			<button
 				onClick={() => {
 					onClick();
 				}}
-				className={styles.main}
+				className={`
+					text-red-400 
+					min-w-8 
+					h-8 
+					rounded-md 
+					bg-gray-950 
+					border-none 
+					py-1 
+					px-2 
+					hover:bg-zinc-800 
+					${this.props.className}
+				`}
+				style={this.props.style}
 			>
 				{children}
 			</button>

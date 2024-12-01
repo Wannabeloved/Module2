@@ -4,8 +4,6 @@ import { Outlet } from "../../app/router";
 
 import { Component } from "react";
 
-import styles from "./index.module.css";
-
 export class TicTacToe extends Component {
 	navigateToSettings() {
 		const { navigate } = this.props;
@@ -22,7 +20,14 @@ export class TicTacToe extends Component {
 	render() {
 		this.navigateIfNeeded();
 		return (
-			<section className={styles.main}>
+			<section
+				className={`
+				flex
+				flex-col
+				gap-6
+				items-center
+			`}
+			>
 				<Information />
 				<Outlet />
 			</section>
