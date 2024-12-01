@@ -1,12 +1,12 @@
-import PropTypes from "prop-types";
+import { Component } from "react";
 import { ErrorInformationLayout } from "./ErrorInformationLayout";
 
-export const ErrorInformation = () => {
-	// ErrorInformation.propTypes = {
-	// 	mesh: PropTypes.array,
-	// 	columns: PropTypes.number,
-	// 	onMove: PropTypes.func,
-	// };
+export class ErrorInformation extends Component {
+	render() {
+		return <ErrorInformationLayout />;
+	}
+}
 
-	return <ErrorInformationLayout />;
-};
+// export const ErrorInformation = () => {
+// 	return <ErrorInformationLayout />;
+// };
