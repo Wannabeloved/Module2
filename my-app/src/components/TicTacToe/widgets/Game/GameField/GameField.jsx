@@ -1,34 +1,66 @@
-import { PlayerSymbol } from "../../../entities/PlayerSymbol/PlayerSymbol";
-import { GameFieldLayout } from "./GameFieldLayout";
+import { Component } from "react";
+import { connect } from "react-redux";
 
-import { useSelector } from "react-redux";
+import withRouter from "../../../../../app/router/withRouter";
 
 import { columnsSelector } from "../../../redux-selectors/columnsSelector";
 import { meshSelector } from "../../../redux-selectors/meshSelector";
 
-import { useDispatch } from "react-redux";
-import { move } from "../../../../../store/actions";
+import { PlayerSymbol } from "../../../entities/PlayerSymbol/PlayerSymbol";
+import { GameFieldLayout } from "./GameFieldLayout";
 
-export const GameField = () => {
-	const columns = useSelector(columnsSelector);
-	const mesh = useSelector(meshSelector);
+import { move as moveAction } from "../../../../../store/actions";
 
-	const dispatch = useDispatch();
-
-	const PlayerSVG = ({ indexOfRow, indexInRow }) => {
-		return <PlayerSymbol currentSymbol={mesh[indexOfRow][indexInRow]} />;
+export class GameFieldContainer extends Component {
+	onMove = (indexOfRow, indexInRow) => {
+		this.props.dispatch(moveAction({ indexOfRow, indexInRow }));
 	};
+	render() {
+		const { columns, mesh } = this.props;
+		const PlayerSVG = ({ indexOfRow, indexInRow }) => {
+			return <PlayerSymbol currentSymbol={mesh[indexOfRow][indexInRow]} />;
+		};
+		return (
+			<GameFieldLayout
+				PlayerSVG={PlayerSVG}
+				onMove={this.onMove}
+				columns={columns}
+				mesh={mesh}
+			/>
+		);
+	}
+}
 
-	const onMove = (indexOfRow, indexInRow) => {
-		dispatch(move({ indexOfRow, indexInRow }));
+export const GameField = connect(mapStateToProps)(
+	withRouter(GameFieldContainer),
+);
+function mapStateToProps(state) {
+	return {
+		columns: columnsSelector(state),
+		mesh: meshSelector(state),
 	};
+}
 
-	return (
-		<GameFieldLayout
-			PlayerSVG={PlayerSVG}
-			onMove={onMove}
-			columns={columns}
-			mesh={mesh}
-		/>
-	);
-};
+// export const GameField = () => {
+// 	const columns = useSelector(columnsSelector);
+// 	const mesh = useSelector(meshSelector);
+
+// 	const dispatch = useDispatch();
+
+// 	const PlayerSVG = ({ indexOfRow, indexInRow }) => {
+// 		return <PlayerSymbol currentSymbol={mesh[indexOfRow][indexInRow]} />;
+// 	};
+
+// 	const onMove = (indexOfRow, indexInRow) => {
+// 		dispatch(move({ indexOfRow, indexInRow }));
+// 	};
+
+// 	return (
+// 		<GameFieldLayout
+// 			PlayerSVG={PlayerSVG}
+// 			onMove={onMove}
+// 			columns={columns}
+// 			mesh={mesh}
+// 		/>
+// 	);
+// };
