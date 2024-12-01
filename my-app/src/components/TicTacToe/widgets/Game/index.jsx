@@ -10,7 +10,8 @@ import { StopButton } from "./StopButton";
 
 class GameContainer extends Component {
 	componentDidMount() {
-		if (!this.props.isGameOn) this.props.navigate("/tictactoe/settings");
+		if (!this.props.isGameOn)
+			setTimeout(() => this.props.navigate("/tictactoe/settings"));
 	}
 	render() {
 		return (
